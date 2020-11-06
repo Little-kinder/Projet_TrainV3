@@ -90,7 +90,102 @@
 		</xsd:sequence>
 
 	</xsd:complexType>
-
+	<xsd:element name="train" type="train"></xsd:element>
+	<xsd:complexType name="train">
+		<xsd:sequence>
+			<xsd:element name="idTrain" type="xsd:int"></xsd:element>
+			<xsd:element name="heureDepart" type="SimpleDate"></xsd:element>
+			<xsd:element name="heureArrive" type="SimpleDate"></xsd:element>
+			<xsd:element name="etat" type="xsd:boolean"></xsd:element>
+			<xsd:element name="nbPassager" type="xsd:int"></xsd:element>
+			<xsd:element name="chemin">
+				<xsd:simpleType >
+				  	<xsd:list  itemType="xsd:string"/>
+				</xsd:simpleType></xsd:element>	
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:element name="trainPhysique" type="trainPhysique"></xsd:element>
+	<xsd:complexType name="trainPhysique">
+		<xsd:sequence>
+			<xsd:element name="idTrainPhys" type="xsd:int"></xsd:element>
+			<xsd:element name="type" type="xsd:string"></xsd:element>	
+			<xsd:element name="idTrain" type="xsd:string"></xsd:element>
+			<xsd:element name="localisationTrain" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:element name="arret" type="arret"></xsd:element>
+	<xsd:complexType name="arret">
+		<xsd:sequence>
+			<xsd:element name="idArret" type="xsd:int"></xsd:element>
+			<xsd:element name="idTrain" type="xsd:int"></xsd:element>
+			<xsd:element name="idTrainphysique" type="xsd:int"></xsd:element>
+			<xsd:element name="idGare" type="xsd:int"></xsd:element>
+			<xsd:element name="numeroVoie" type="xsd:int"></xsd:element>
+			<xsd:element name="heureArrive" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="heureDepart" type="xsd:dateTime"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="gare" type="gare"></xsd:element>
+	<xsd:complexType name="gare">
+		<xsd:sequence>
+			<xsd:element name="idGare" type="xsd:int"></xsd:element>
+			<xsd:element name="ville" type="xsd:string"></xsd:element>
+			<xsd:element name="localisation" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:element name="passager" type="passager"></xsd:element>
+	<xsd:complexType name="passager">
+		<xsd:sequence>
+			<xsd:element name="idPass" type="xsd:int"></xsd:element>
+			<xsd:element name="idTrain" type="xsd:int"></xsd:element>
+			<xsd:element name="correspondance" type="xsd:boolean"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:element name="infogare" type="infogare"></xsd:element>
+	<xsd:complexType name="infogare">
+		<xsd:sequence>
+			<xsd:element name="idInfogare" type="xsd:int"></xsd:element>
+			<xsd:element name="typeInfogare" type="xsd:string"></xsd:element>
+			<xsd:element name="chemin" type="xsd:string"></xsd:element>
+			<xsd:element name="idTrain" type="xsd:int"></xsd:element>
+			<xsd:element name="idTrainPhysique" type="xsd:int"></xsd:element>
+			<xsd:element name="idGare" type="xsd:int"></xsd:element>		
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="information" type="information"></xsd:element>
+	<xsd:complexType name="information">
+		<xsd:sequence>
+			<xsd:element name="idInfo" type="xsd:int"></xsd:element>
+			<xsd:element name="typeInfo" type="xsd:string"></xsd:element>
+			<xsd:element name="messageInfo" type="xsd:string"></xsd:element>
+			<xsd:element name="idTrain" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:element name="infocentre" type="information"></xsd:element>
+	<xsd:complexType name="infocentre">
+		<xsd:sequence>
+			<xsd:element name="idTrainReseau">
+				<xsd:simpleType >
+				  	<xsd:list  itemType="xsd:int"/>
+				</xsd:simpleType></xsd:element>
+				<xsd:element name="idGare">
+				<xsd:simpleType >
+				  	<xsd:list  itemType="xsd:int"/>
+				</xsd:simpleType></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
 
 
 
