@@ -9,6 +9,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Arret;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Gare;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
 
 
@@ -18,7 +19,7 @@ public class ArretResource {
 	int idArret;
 	int idTrain;
 	int idTrainPhysique;
-	int idGare;
+	Gare idGare;
 	Arret arret;
 	int numeroVoie;
 	XMLGregorianCalendar heureArrive;
@@ -33,7 +34,7 @@ public class ArretResource {
 	@PUT
 	@Path("gare")
 	@Consumes(MediaType.TEXT_PLAIN)
-	public Response putIdGare(int idGare) throws DatatypeConfigurationException{
+	public Response putIdGare(Gare idGare) throws DatatypeConfigurationException{
 		arret.setIdGare(idGare);
 		this.idGare=idGare;
 		return Response.ok(idGare).build();
