@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.ufr27.miage.resource;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -25,14 +26,28 @@ public class TrainPhysiqueResource {
 		this.idTrainPhys = idTrainPhys;
 
 	}
+	
+	@POST
+	@Path("placeholder")
+	public void postTrainLocation() {
+		
+	}
 
-	@GET
+	@PUT
 	@Path("location")
-	public Response putTrainLocation() throws DatatypeConfigurationException {
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response putTrainLocation(String gpsCoordinate) throws DatatypeConfigurationException {
 		TrainPhysique t = new ObjectFactory().createTrainPhysique();
 		t.setIdTrainPhys(idTrainPhys);
-		t.setLocalisationTrain("48°49\'32.7\"N 2°21\'35.7\"E");
+		t.setLocalisationTrain(gpsCoordinate);
 		String location = t.getLocalisationTrain();
 		return Response.ok(location).build();
 	}
+	
+	@GET
+	@Path("info")
+	public Response getInfoTrain() {
+		return Response.ok().build();
+	}
+
 }

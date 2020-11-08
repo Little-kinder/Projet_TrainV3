@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Train;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.TrainPhysique;
+
 @Entity
 @Table(name="arret")
 public class Arret {
