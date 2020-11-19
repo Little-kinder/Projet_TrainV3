@@ -2,23 +2,17 @@ package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Train;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.TrainPhysique;
 
 @Entity
-@Table(name="arret")
 public class Arret {
 
 	@Id
 	int idArret;
-	
-	Train idTrain;
-	TrainPhysique idTrainPhysique;
-	Gare idGare;
 	
 	public int getIdArret() {
 		return idArret;
@@ -26,23 +20,23 @@ public class Arret {
 	public void setIdArret(int idArret) {
 		this.idArret = idArret;
 	}
-	public Train getIdTrain() {
-		return idTrain;
+	public Train getTrain() {
+		return train;
 	}
-	public void setIdTrain(Train idTrain) {
-		this.idTrain = idTrain;
+	public void setTrain(Train train) {
+		this.train = train;
 	}
-	public TrainPhysique getIdTrainPhysique() {
-		return idTrainPhysique;
+	public TrainPhysique getTrainPhysique() {
+		return trainPhysique;
 	}
-	public void setIdTrainPhysique(TrainPhysique idTrainPhysique) {
-		this.idTrainPhysique = idTrainPhysique;
+	public void setTrainPhysique(TrainPhysique trainPhysique) {
+		this.trainPhysique = trainPhysique;
 	}
-	public Gare getIdGare() {
-		return idGare;
+	public Gare getGare() {
+		return gare;
 	}
-	public void setIdGare(Gare idGare) {
-		this.idGare = idGare;
+	public void setGare(Gare gare) {
+		this.gare = gare;
 	}
 	public int getNumeroVoix() {
 		return numeroVoix;
@@ -62,6 +56,13 @@ public class Arret {
 	public void setHeureArrivee(LocalDateTime heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
+	@ManyToOne(cascade = CascadeType.ALL)
+	Train train;
+	@ManyToOne(cascade = CascadeType.ALL)
+	TrainPhysique trainPhysique;
+	@ManyToOne(cascade = CascadeType.ALL)
+	Gare gare;
+	
 	
 	int numeroVoix;
 	LocalDateTime heureDepart;

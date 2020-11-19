@@ -1,16 +1,15 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="gare")
 public class Gare {
-	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idGare;
-	
 	public int getIdGare() {
 		return idGare;
 	}
@@ -29,9 +28,7 @@ public class Gare {
 	public void setLocalisation(String localisation) {
 		this.localisation = localisation;
 	}
-	
 	String ville;
 	String localisation;
-	
 
 }
