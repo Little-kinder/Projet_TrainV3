@@ -74,7 +74,7 @@ public class Main {
 						bindFactory(PaymentAckQueueSupplier.class).to(Queue.class).named("PaymentAckQueue").in(Singleton.class);
 						bindFactory(PaymentQueueSupplier.class).to(Queue.class).named("PaymentQueue").in(Singleton.class);
 						
-						//bind(PaymentProcessorBean.class).to(PaymentProcessorBean.class).in(Singleton.class);
+//						bind(PaymentProcessorBean.class).to(PaymentProcessorBean.class).in(Singleton.class);
 						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class).in(Singleton.class);
 
 					}
