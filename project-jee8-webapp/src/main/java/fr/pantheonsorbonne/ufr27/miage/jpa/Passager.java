@@ -15,7 +15,7 @@ public class Passager {
 	int idPassager;
 	boolean correspondance;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)// manyto many
 	Train train;
 	
 	public int getIdPassager() {
