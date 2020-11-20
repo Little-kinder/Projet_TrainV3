@@ -8,36 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="train")
 public class Train {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;
-	String typeTrain;
-	LocalDateTime heureDepart;
-	LocalDateTime heureArrivee;
-	boolean etat;
-	int nbPassager;
-	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "train")
-	List<Passager> passagers;
-	List<String> Chemin;
-	
-	public List<Passager> getPassagers() {
-		return passagers;
-	}
-	public void setPassagers(List<Passager> passagers) {
-		this.passagers = passagers;
-	}
-		
 	public int getIdTrain() {
 		return idTrain;
 	}
@@ -74,12 +51,10 @@ public class Train {
 	public void setNbPassager(int nbPassager) {
 		this.nbPassager = nbPassager;
 	}
-	public List<String> getChemin() {
-		return Chemin;
-	}
-	public void setChemin(List<String> chemin) {
-		Chemin = chemin;
-	}
-
-
+	String typeTrain;
+	LocalDateTime heureDepart;
+	LocalDateTime heureArrivee;
+	boolean etat;
+	int nbPassager;
+	
 }

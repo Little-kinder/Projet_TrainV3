@@ -2,23 +2,12 @@ package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Train;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.TrainPhysique;
 
 @Entity
-@Table(name="infogare")
 public class Infogare {
 	
 	@Id
 	int idInfogare;
-	String typeInfogare;
-	Train idTrain;
-	Train chemin;
-	TrainPhysique idTrainPhysique;
-	Gare idGare;
-	
 	public int getIdInfogare() {
 		return idInfogare;
 	}
@@ -31,11 +20,11 @@ public class Infogare {
 	public void setTypeInfogare(String typeInfogare) {
 		this.typeInfogare = typeInfogare;
 	}
-	public Train getIdTrain() {
-		return idTrain;
+	public Train getTrain() {
+		return train;
 	}
-	public void setIdTrain(Train idTrain) {
-		this.idTrain = idTrain;
+	public void setTrain(Train train) {
+		this.train = train;
 	}
 	public Train getChemin() {
 		return chemin;
@@ -43,18 +32,23 @@ public class Infogare {
 	public void setChemin(Train chemin) {
 		this.chemin = chemin;
 	}
-	public TrainPhysique getIdTrainPhysique() {
-		return idTrainPhysique;
+	public TrainPhysique getTrainPhysique() {
+		return trainPhysique;
 	}
-	public void setIdTrainPhysique(TrainPhysique idTrainPhysique) {
-		this.idTrainPhysique = idTrainPhysique;
+	public void setTrainPhysique(TrainPhysique trainPhysique) {
+		this.trainPhysique = trainPhysique;
 	}
-	public Gare getIdGare() {
-		return idGare;
+	public Gare getGare() {
+		return gare;
 	}
-	public void setIdGare(Gare idGare) {
-		this.idGare = idGare;
+	public void setGare(Gare gare) {
+		this.gare = gare;
 	}
-	
+	String typeInfogare;
+	Train train;
+	Train chemin;
+	TrainPhysique trainPhysique;
+	Gare gare;
+
 
 }

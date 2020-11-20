@@ -2,23 +2,16 @@ package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="trainPhysique")
 public class TrainPhysique {
-	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrainPhysique;
-	String type;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	Train idTrain;
-	
-	String localicationTrain;
-	
 	public int getIdTrainPhysique() {
 		return idTrainPhysique;
 	}
@@ -35,12 +28,12 @@ public class TrainPhysique {
 		this.type = type;
 	}
 
-	public Train getIdTrain() {
-		return idTrain;
+	public Train getTrain() {
+		return train;
 	}
 
-	public void setIdTrain(Train idTrain) {
-		this.idTrain = idTrain;
+	public void setTrain(Train train) {
+		this.train = train;
 	}
 
 	public String getLocalicationTrain() {
@@ -51,5 +44,10 @@ public class TrainPhysique {
 		this.localicationTrain = localicationTrain;
 	}
 
-
+	String type;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	Train train;
+	
+	String localicationTrain;
 }

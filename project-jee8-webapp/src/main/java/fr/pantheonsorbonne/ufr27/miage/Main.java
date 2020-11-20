@@ -61,11 +61,11 @@ public class Main {
 					@Override
 					protected void configure() {
 
-						/*bind(GymServiceImpl.class).to(GymService.class);
+						bind(GymServiceImpl.class).to(GymService.class);
 						bind(PaymentServiceImpl.class).to(PaymentService.class);
 						bind(InvoicingServiceImpl.class).to(InvoicingService.class);
 						bind(InvoiceDAO.class).to(InvoiceDAO.class);
-						bind(UserDAO.class).to(UserDAO.class);
+						//bind(UserDAO.class).to(UserDAO.class);
 						bind(MailingServiceImpl.class).to(MailingService.class);
 						bind(PaymentDAO.class).to(PaymentDAO.class);
 						bindFactory(EMFFactory.class).to(EntityManagerFactory.class).in(Singleton.class);
@@ -74,8 +74,8 @@ public class Main {
 						bindFactory(PaymentAckQueueSupplier.class).to(Queue.class).named("PaymentAckQueue").in(Singleton.class);
 						bindFactory(PaymentQueueSupplier.class).to(Queue.class).named("PaymentQueue").in(Singleton.class);
 						
-						bind(PaymentProcessorBean.class).to(PaymentProcessorBean.class).in(Singleton.class);
-						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class).in(Singleton.class);*/
+//						bind(PaymentProcessorBean.class).to(PaymentProcessorBean.class).in(Singleton.class);
+						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class).in(Singleton.class);
 
 					}
 
@@ -97,13 +97,11 @@ public class Main {
 		SLF4JBridgeHandler.install();
 		final HttpServer server = startServer();
 		
-		//BrokerUtils.startBroker();
+		BrokerUtils.startBroker();
 		
-		//PersistenceConf pc = 		new PersistenceConf();
-		//pc.getEM();
-		//pc.launchH2WS();
-		
-		
+		PersistenceConf pc = new PersistenceConf();
+		pc.getEM();
+		pc.launchH2WS();
 		
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",

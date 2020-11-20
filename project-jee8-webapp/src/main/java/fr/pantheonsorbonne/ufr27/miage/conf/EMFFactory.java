@@ -10,7 +10,7 @@ import org.glassfish.hk2.api.Factory;
 public class EMFFactory implements Supplier<EntityManagerFactory> {
     private final EntityManagerFactory emf;
     public EMFFactory (){
-        emf = Persistence.createEntityManagerFactory("default");
+        emf = Persistence.createEntityManagerFactory("mysql");
     }
     
 	@Override

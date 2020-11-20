@@ -35,7 +35,7 @@ public class PersistenceConf {
 
 	}
 
-	private final EntityManagerFactory factory = javax.persistence.Persistence.createEntityManagerFactory("default");
+	private final EntityManagerFactory factory = javax.persistence.Persistence.createEntityManagerFactory("mysql");
 
 	@Produces
 	public EntityManager getEM() {
