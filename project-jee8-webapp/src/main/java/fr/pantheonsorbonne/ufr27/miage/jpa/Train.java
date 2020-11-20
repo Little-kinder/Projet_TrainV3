@@ -1,13 +1,19 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Train {
@@ -15,6 +21,19 @@ public class Train {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;
+	TrainPhysique trainphysique;
+	String typeTrain;
+	LocalDateTime heureDepart;
+	LocalDateTime heureArrivee;
+	boolean etat;
+	int nbPassager;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
+	Set<Passager>passagers= new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
+	 @JoinColumn(name="idarret", nullable=false)
+	List<Arret>chemin = new ArrayList<Arret>();
+	
 	public int getIdTrain() {
 		return idTrain;
 	}
@@ -22,7 +41,7 @@ public class Train {
 		this.idTrain = idTrain;
 	}
 	public String getTypeTrain() {
-		return typeTrain;
+		return trainphysique.getType();
 	}
 	public void setTypeTrain(String typeTrain) {
 		this.typeTrain = typeTrain;
@@ -51,10 +70,16 @@ public class Train {
 	public void setNbPassager(int nbPassager) {
 		this.nbPassager = nbPassager;
 	}
-	String typeTrain;
-	LocalDateTime heureDepart;
-	LocalDateTime heureArrivee;
-	boolean etat;
-	int nbPassager;
-	
+	public Set<Passager> getPassagers() {
+		return passagers;
+	}
+	public void setPassagers(Set<Passager> passagers) {
+		this.passagers = passagers;
+	}
+	public List<Arret> getChemin() {
+		return chemin;
+	}
+	public void setChemin(List<Arret> chemin) {
+		this.chemin = chemin;
+	}
 }

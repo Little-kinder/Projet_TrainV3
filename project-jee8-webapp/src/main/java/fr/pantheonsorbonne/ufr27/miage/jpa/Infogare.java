@@ -1,13 +1,26 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Infogare {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idInfogare;
+	String typeInfogare;
+//	@
+	Train train;
+//	@
+	Train chemin;
+//	@
+	TrainPhysique trainPhysique;
+//	@
+	Gare gare;
+	
 	public int getIdInfogare() {
 		return idInfogare;
 	}
@@ -44,11 +57,7 @@ public class Infogare {
 	public void setGare(Gare gare) {
 		this.gare = gare;
 	}
-	String typeInfogare;
-	Train train;
-	Train chemin;
-	TrainPhysique trainPhysique;
-	Gare gare;
+	
 
 
 }

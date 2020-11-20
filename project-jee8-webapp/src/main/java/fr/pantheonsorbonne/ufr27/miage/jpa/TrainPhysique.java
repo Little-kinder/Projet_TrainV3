@@ -12,6 +12,12 @@ public class TrainPhysique {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrainPhysique;
+	String type;
+	@OneToOne(cascade = CascadeType.ALL)
+	Train train;
+	
+	String localicationTrain;
+
 	public int getIdTrainPhysique() {
 		return idTrainPhysique;
 	}
@@ -44,10 +50,4 @@ public class TrainPhysique {
 		this.localicationTrain = localicationTrain;
 	}
 
-	String type;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	Train train;
-	
-	String localicationTrain;
 }
