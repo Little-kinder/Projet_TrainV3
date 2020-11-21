@@ -13,7 +13,7 @@ public class TrainPhysique {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrainPhysique;
 	String type;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)/*un trajet appartient que a un train et vis versa*/
 	Train train;
 	
 	String localicationTrain;

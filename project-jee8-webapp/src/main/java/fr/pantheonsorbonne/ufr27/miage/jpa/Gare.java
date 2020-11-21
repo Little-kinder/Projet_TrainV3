@@ -9,7 +9,6 @@ import javax.persistence.Id;
 public class Gare {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int idGare;
 	public int getIdGare() {
 		return idGare;
