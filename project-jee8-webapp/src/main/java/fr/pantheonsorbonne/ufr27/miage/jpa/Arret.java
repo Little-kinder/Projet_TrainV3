@@ -1,11 +1,9 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
-import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
@@ -78,6 +76,7 @@ public class Arret {
 	public void setHeureArrivee(String heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
+
 	
 	@Override
 	public String toString() {

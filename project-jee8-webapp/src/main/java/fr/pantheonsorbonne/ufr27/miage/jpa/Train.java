@@ -1,6 +1,6 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 @Entity
 public class Train {
@@ -59,7 +58,7 @@ public class Train {
 		this.etat = etat;
 		this.nbPassager = nbPassager;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Train [id=" + idTrain + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", nbPassager=" + nbPassager + "]";

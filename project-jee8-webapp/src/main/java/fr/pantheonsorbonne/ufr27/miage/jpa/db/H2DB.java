@@ -2,6 +2,7 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa.db;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.h2.tools.Server;
@@ -23,6 +24,12 @@ public class H2DB {
 			e.printStackTrace();
 			System.exit(-2);
 		}
+		/*DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 
+		// Connexion à la base myschema sur la machine localhost
+		// en utilisant le login "username" et le password "password"
+		con = DriverManager.getConnection("jdbc:mysql://localhost/myschema",
+		                                                    "username", "password");
+		con.close();*/
 	}
 }
