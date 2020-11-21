@@ -13,18 +13,28 @@ public class Arret {
 
 	@Id
 	int idArret;
+	
 	/*Un trajet à plusieurs arrets, mais un arret n'a qu'un seul trajet */
 	@ManyToOne(cascade = CascadeType.ALL)
 	Train train;
 	
-	
 	@ManyToOne(cascade = CascadeType.ALL)
 	Gare gare;
-	
 	
 	int numeroVoix;
 	LocalDateTime heureDepart;
 	LocalDateTime heureArrivee;
+	
+	public Arret() {
+		super();
+	}
+	
+	public Arret(int idArret, int numeroVoix, LocalDateTime heureDepart, LocalDateTime heureArrivee) {
+		this.idArret = idArret;
+		this.numeroVoix = numeroVoix;
+		this.heureDepart = heureDepart;
+		this.heureArrivee = heureArrivee;
+	}
 	
 	public int getIdArret() {
 		return idArret;
@@ -65,5 +75,9 @@ public class Arret {
 	}
 
 	
+	@Override
+	public String toString() {
+		return "Arret [id=" + idArret + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", numeroVoix=" + numeroVoix + "]";
+	}
 
 }

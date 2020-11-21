@@ -19,6 +19,15 @@ public class Infogare {
 	@ManyToOne(cascade = CascadeType.ALL)
 	Gare gare;
 	
+	public Infogare() {
+		super();
+	}
+	
+	public Infogare(int idInfogare, String typeInfogare) {
+		this.idInfogare = idInfogare;
+		this.typeInfogare = typeInfogare;
+	}
+	
 	public int getIdInfogare() {
 		return idInfogare;
 	}
@@ -38,6 +47,9 @@ public class Infogare {
 		this.gare = gare;
 	}
 	
-
+	@Override
+	public String toString() {
+		return "Gare [id=" + idInfogare + ", typeInfogare=" + typeInfogare +" ]";
+	}
 
 }

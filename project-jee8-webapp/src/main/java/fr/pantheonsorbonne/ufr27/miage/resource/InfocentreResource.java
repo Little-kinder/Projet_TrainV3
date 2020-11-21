@@ -40,11 +40,20 @@ public class InfocentreResource {
 	}
 	
 	@PUT
-	@Path("put")
+	@Path("putE")
 	@Consumes(MediaType.TEXT_PLAIN)
-	public Response putTrainLocal(String localisation, boolean etat) throws DatatypeConfigurationException{
-		trainP.setLocalisationTrain(localisation);
+	public Response putTrainLocalE(@PathParam("idtrainp") int idTrainP, boolean etat) throws DatatypeConfigurationException{
 		train.setEtat(etat);
+		
+		return Response.ok(etat).build();
+	}
+	
+	@PUT
+	@Path("putL")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response putTrainLocalL(@PathParam("idtrainp") int idTrainP, String localisation) throws DatatypeConfigurationException{
+		trainP.setLocalisationTrain(localisation);
+		
 		
 		return Response.ok(localisation).build();
 	}

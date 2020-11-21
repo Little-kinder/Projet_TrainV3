@@ -16,7 +16,12 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Train {
+
 	
+	
+
+	private String typeTrain;
+
 	public Train(int idTrain, String typeTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee, boolean etat,
 			int nbPassager, Set<TrainPhysique> listTrain, Set<Passager> passagers, List<Arret> chemin) {
 		super();
@@ -35,10 +40,10 @@ public class Train {
 		super();
 	}
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;
-	String typeTrain;
 	LocalDateTime heureDepart;
 	LocalDateTime heureArrivee;
 	boolean etat;
@@ -54,6 +59,25 @@ public class Train {
 		this.listTrain = listTrain;
 	}
 	
+	
+	public Train(int idTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee,
+			int nbPassager) {
+		this.idTrain = idTrain;
+		this.heureDepart = heureDepart;
+		this.heureArrivee = heureArrivee;
+		this.nbPassager = nbPassager;
+	}
+	
+	public Train(int idTrain, int nbPassager) {
+		this.idTrain = idTrain;
+		this.nbPassager = nbPassager;
+	}
+	
+	@Override
+	public String toString() {
+		return "Train [id=" + idTrain + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", nbPassager=" + nbPassager + "]";
+	}
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
 	Set<Passager>passagers= new HashSet<>();
 	
@@ -66,12 +90,6 @@ public class Train {
 	}
 	public void setIdTrain(int idTrain) {
 		this.idTrain = idTrain;
-	}
-	public String getTypeTrain() {
-		return typeTrain;
-	}
-	public void setTypeTrain(String typeTrain) {
-		this.typeTrain = typeTrain;
 	}
 	public LocalDateTime getHeureDepart() {
 		return heureDepart;
