@@ -12,6 +12,16 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class TrainPhysique {
+	
+	public TrainPhysique() {
+		super();
+	}
+	
+	public TrainPhysique(int idTrainPhysique) {
+		this.idTrainPhysique = idTrainPhysique;
+	}
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrainPhysique;
@@ -20,6 +30,11 @@ public class TrainPhysique {
 	Train train;
 	
 	String localicationTrain;
+	
+	@Override
+	public String toString() {
+		return "TrainPhysique [id=" + idTrainPhysique + "]";
+	}
 
 	public int getIdTrainPhysique() {
 		return idTrainPhysique;
