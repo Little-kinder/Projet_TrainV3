@@ -23,20 +23,24 @@ public class Arret {
 	Gare gare;
 	
 	int numeroVoix;
-	LocalDateTime heureDepart;
-	LocalDateTime heureArrivee;
+	String heureDepart;
+	String heureArrivee;
 	
 	public Arret() {
 		super();
 	}
-	
-	public Arret(int idArret, int numeroVoix, LocalDateTime heureDepart, LocalDateTime heureArrivee) {
+
+	public Arret(int idArret, int numeroVoix, String heureDepart,
+			String heureArrivee, Train train, Gare gare) {
 		this.idArret = idArret;
+		this.train = train;
+		this.gare = gare;
 		this.numeroVoix = numeroVoix;
 		this.heureDepart = heureDepart;
 		this.heureArrivee = heureArrivee;
 	}
-	
+
+
 	public int getIdArret() {
 		return idArret;
 	}
@@ -62,16 +66,16 @@ public class Arret {
 	public void setNumeroVoix(int numeroVoix) {
 		this.numeroVoix = numeroVoix;
 	}
-	public LocalDateTime getHeureDepart() {
+	public String getHeureDepart() {
 		return heureDepart;
 	}
-	public void setHeureDepart(LocalDateTime heureDepart) {
+	public void setHeureDepart(String heureDepart) {
 		this.heureDepart = heureDepart;
 	}
-	public LocalDateTime getHeureArrivee() {
+	public String getHeureArrivee() {
 		return heureArrivee;
 	}
-	public void setHeureArrivee(LocalDateTime heureArrivee) {
+	public void setHeureArrivee(String heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
 	

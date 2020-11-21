@@ -38,6 +38,7 @@ import fr.pantheonsorbonne.ufr27.miage.jms.utils.BrokerUtils;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Billet;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Passager;
 import fr.pantheonsorbonne.ufr27.miage.jpa.TrainPhysique;
+import fr.pantheonsorbonne.ufr27.miage.jpa.service.BDDService;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.InvoicingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.MailingServiceImpl;
@@ -57,9 +58,7 @@ public class Main {
 
 	public static final String BASE_URI = "http://localhost:8080/";
 
-	@Inject
-	private EntityManager manager;
-	
+
 	public static HttpServer startServer() {
 
 		final ResourceConfig rc = new ResourceConfig()//
@@ -116,24 +115,9 @@ public class Main {
 		PersistenceConf pc = new PersistenceConf();
 		pc.getEM();
 		pc.launchH2WS();
-	
-		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-
-		try (SeContainer container = initializer.addPackages(true, Main.class.getPackage()).initialize()) {
-			Main jpa = container.select(Main.class).get();
-			EntityTransaction tx = jpa.manager.getTransaction();
-			tx.begin();
-			try {
-				jpa.createTrainPhysique();
-				jpa.createPassagers();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			tx.commit();
-			jpa.listPassagers();
-
-			System.out.println(".. done");
-		}
+		
+		BDDService input = new BDDService(pc.getEM());
+		input.input();
 		
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
@@ -143,48 +127,6 @@ public class Main {
 		server.stop();
 		
 		
-	}
-	
-	private void createTrainPhysique() {
-	
-		manager.getTransaction().begin();
-		TrainPhysique trainphysique = new TrainPhysique(11);
-		manager.persist(trainphysique); // cree trainphysique
-		
-		Billet billet = new Billet(5);
-		manager.persist(billet);
-		
-		Passager passager = new Passager("Toto", false, billet);
-		manager.persist(passager);
-		manager.flush();
-	
-
-		manager.getTransaction().commit();
-	}
-	
-	private void createPassagers() {
-		long numOfPassagers = manager.createNamedQuery("countPassagers", Long.class).getSingleResult();
-		if (numOfPassagers > 0) {
-			int res = manager.createNamedQuery("deleteAllPassagers").executeUpdate();
-			System.out.println("Deleted  " + res + " Passagers");
-
-			int dep = manager.createNamedQuery("deleteAllBillets").executeUpdate();
-			System.out.println("Deleted  " + dep + " Billet(s)");
-		}
-
-		Billet billet = new Billet(10);
-		manager.persist(billet);
-		manager.persist(new Passager("Toto", true, billet));
-		manager.persist(new Passager("Fifi", false, billet));
-
-	}
-
-	private void listPassagers() {
-		Collection<Passager> passagers = manager.createNamedQuery("findAllPassagers", Passager.class).getResultList();
-		for (Passager e : passagers) {
-			System.out.println(e);
-	}
-
 	}
 
 

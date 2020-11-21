@@ -13,14 +13,17 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class TrainPhysique {
 	
+
 	public TrainPhysique() {
 		super();
 	}
 	
-	public TrainPhysique(int idTrainPhysique) {
+	public TrainPhysique(int idTrainPhysique, String type, Train train, String localicationTrain) {
 		this.idTrainPhysique = idTrainPhysique;
+		this.type = type;
+		this.train = train;
+		this.localicationTrain = localicationTrain;
 	}
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

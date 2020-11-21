@@ -23,27 +23,27 @@ public class Gare {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-	public String getLocalisation() {
-		return localisation;
+	public String getNom() {
+		return nom;
 	}
-	public void setLocalisation(String localisation) {
-		this.localisation = localisation;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 	String ville;
-	String localisation;
+	String nom;
 	
 	public Gare() {
 		
 	}
-	public Gare(int idGare, String ville, String localisation) {
+	public Gare(int idGare, String ville, String nom) {
 		this.idGare = idGare;
 		this.ville = ville;
-		this.localisation = localisation;
+		this.nom = nom;
 	}
 	
 	@Override
 	public String toString() {
-		return "Gare [id=" + idGare + ", ville=" + ville + ", localisation=" + localisation + " ]";
+		return "Gare [id=" + idGare + ", ville=" + ville + ", nom=" + nom + " ]";
 	}
 
 }

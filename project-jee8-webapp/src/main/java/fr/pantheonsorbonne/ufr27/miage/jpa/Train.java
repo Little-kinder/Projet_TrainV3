@@ -14,14 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
+
 @Entity
 public class Train {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;
-	LocalDateTime heureDepart;
-	LocalDateTime heureArrivee;
+	String heureDepart;
+	String heureArrivee;
 	boolean etat;
 	int nbPassager;
 	
@@ -34,20 +36,27 @@ public class Train {
 	public void setListTrain(Set<TrainPhysique> listTrain) {
 		this.listTrain = listTrain;
 	}
+	public String getHeureDepart() {
+		return heureDepart;
+	}
+	public void setHeureDepart(String heureDepart) {
+		this.heureDepart = heureDepart;
+	}
+	public String getHeureArrivee() {
+		return heureArrivee;
+	}
+	public void setHeureArrivee(String heureArrivee) {
+		this.heureArrivee = heureArrivee;
+	}
 	
 	public Train() {
 	}
 	
-	public Train(int idTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee,
-			int nbPassager) {
+	public Train(int idTrain, String heureDepart, String heureArrivee, boolean etat, int nbPassager) {
 		this.idTrain = idTrain;
 		this.heureDepart = heureDepart;
 		this.heureArrivee = heureArrivee;
-		this.nbPassager = nbPassager;
-	}
-	
-	public Train(int idTrain, int nbPassager) {
-		this.idTrain = idTrain;
+		this.etat = etat;
 		this.nbPassager = nbPassager;
 	}
 	
@@ -60,7 +69,7 @@ public class Train {
 	Set<Passager>passagers= new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
-	 @JoinColumn(name="idarret", nullable=false)
+	@JoinColumn(name="idarret", nullable=false)
 	List<Arret>chemin = new ArrayList<Arret>();
 	
 	public int getIdTrain() {
@@ -69,18 +78,7 @@ public class Train {
 	public void setIdTrain(int idTrain) {
 		this.idTrain = idTrain;
 	}
-	public LocalDateTime getHeureDepart() {
-		return heureDepart;
-	}
-	public void setHeureDepart(LocalDateTime heureDepart) {
-		this.heureDepart = heureDepart;
-	}
-	public LocalDateTime getHeureArrivee() {
-		return heureArrivee;
-	}
-	public void setHeureArrivee(LocalDateTime heureArrivee) {
-		this.heureArrivee = heureArrivee;
-	}
+
 	public boolean isEtat() {
 		return etat;
 	}
