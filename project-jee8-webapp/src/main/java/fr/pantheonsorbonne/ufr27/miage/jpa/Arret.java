@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
@@ -64,6 +63,7 @@ public class Arret {
 	public void setHeureArrivee(LocalDateTime heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
+
 	
 
 }

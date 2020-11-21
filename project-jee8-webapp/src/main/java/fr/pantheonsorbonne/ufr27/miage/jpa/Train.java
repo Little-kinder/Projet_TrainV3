@@ -30,7 +30,11 @@ public class Train {
 		this.passagers = passagers;
 		this.chemin = chemin;
 	}
-
+	
+	public Train() {
+		super();
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;

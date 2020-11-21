@@ -14,6 +14,10 @@ public class Gare {
 		this.ville = ville;
 		this.localisation = localisation;
 	}
+	
+	public Gare() {
+		super();
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idGare;
