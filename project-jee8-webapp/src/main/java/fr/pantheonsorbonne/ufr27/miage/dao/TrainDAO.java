@@ -18,6 +18,7 @@ import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Invoice;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Passager;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Train;
+import fr.pantheonsorbonne.ufr27.miage.jpa.TrainPhysique;
 
 @ManagedBean
 public class TrainDAO {
@@ -43,7 +44,7 @@ public class TrainDAO {
 		return currtrain.getHeureArrivee();
 	}
 	
-	public boolean etat(int idTrain) throws IOException{
+	public boolean getEtat(int idTrain) throws IOException{
 
 		Train currtrain = em.find(Train.class, idTrain);
 		if (currtrain == null) {
@@ -78,4 +79,28 @@ public class TrainDAO {
 		List<Arret> chemin = (List<Arret>) currtrain.getChemin();
 		return chemin;
 	}
+	
+	/* public List<TrainPhysique>  getTrainPhyPassager(int idPassager){
+		
+		
+		Passager passager = em.find(Passager.class, idPassager);
+		Billet billet = em.find(Billet.class, ) */
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
