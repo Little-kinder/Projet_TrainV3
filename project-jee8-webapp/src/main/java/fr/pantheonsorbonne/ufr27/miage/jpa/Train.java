@@ -18,6 +18,10 @@ import javax.persistence.OneToMany;
 public class Train {
 
 	
+	
+
+	private String typeTrain;
+
 	public Train(int idTrain, String typeTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee, boolean etat,
 			int nbPassager, Set<TrainPhysique> listTrain, Set<Passager> passagers, List<Arret> chemin) {
 		super();
@@ -55,8 +59,6 @@ public class Train {
 		this.listTrain = listTrain;
 	}
 	
-	public Train() {
-	}
 	
 	public Train(int idTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee,
 			int nbPassager) {
