@@ -12,6 +12,15 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class TrainPhysique {
+	
+	public TrainPhysique() {
+		super();
+	}
+	
+	public TrainPhysique(int idTrainPhysique) {
+		this.idTrainPhysique = idTrainPhysique;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrainPhysique;

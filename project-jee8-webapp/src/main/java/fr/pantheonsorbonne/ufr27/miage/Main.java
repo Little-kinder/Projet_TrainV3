@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Locale;
 
+import javax.enterprise.inject.se.SeContainer;
+import javax.enterprise.inject.se.SeContainerInitializer;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -30,6 +34,7 @@ import fr.pantheonsorbonne.ufr27.miage.jms.conf.JMSProducer;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentAckQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.utils.BrokerUtils;
+import fr.pantheonsorbonne.ufr27.miage.jpa.TrainPhysique;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.InvoicingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.MailingServiceImpl;
@@ -49,6 +54,9 @@ public class Main {
 
 	public static final String BASE_URI = "http://localhost:8080/";
 
+	@Inject
+	private EntityManager manager;
+	
 	public static HttpServer startServer() {
 
 		final ResourceConfig rc = new ResourceConfig()//
@@ -83,6 +91,8 @@ public class Main {
 
 		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 	}
+	
+	
 
 	/**
 	 * Main method.beanbeanbeanbean
@@ -90,7 +100,7 @@ public class Main {
 	 * @param args
 	 * @throws IOException
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
 
 		Locale.setDefault(Locale.ENGLISH);
 		SLF4JBridgeHandler.removeHandlersForRootLogger();
@@ -103,12 +113,40 @@ public class Main {
 		pc.getEM();
 		pc.launchH2WS();
 		
+		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
+
+		try (SeContainer container = initializer.addPackages(true, Main.class.getPackage()).initialize()) {
+			Main jpa = container.select(Main.class).get();
+			EntityTransaction tx = jpa.manager.getTransaction();
+			tx.begin();
+			try {
+				jpa.createTrainPhysique();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			tx.commit();
+	
+			System.out.println(".. done");
+		
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
 				BASE_URI));
 		System.in.read();
 		server.stop();
-		
+		}
 		
 	}
+	
+	private void createTrainPhysique() {
+//		int numOfEmployees = manager.createQuery("Select a From Employee a", Employee.class).getResultList().size();
+		
+			TrainPhysique trainphysique = new TrainPhysique(11);
+			manager.persist(trainphysique); // cree trainphysique
+			
+//			manager.persist(new Employee("Jakab Gipsz", trainphysique));
+//			manager.persist(new Employee("Captain Nemo", trainphysique));
+
+		
+	}
+	
 }
