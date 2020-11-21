@@ -17,6 +17,26 @@ import javax.persistence.OneToMany;
 @Entity
 public class Train {
 
+	
+	public Train(int idTrain, String typeTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee, boolean etat,
+			int nbPassager, Set<TrainPhysique> listTrain, Set<Passager> passagers, List<Arret> chemin) {
+		super();
+		this.idTrain = idTrain;
+		this.typeTrain = typeTrain;
+		this.heureDepart = heureDepart;
+		this.heureArrivee = heureArrivee;
+		this.etat = etat;
+		this.nbPassager = nbPassager;
+		this.listTrain = listTrain;
+		this.passagers = passagers;
+		this.chemin = chemin;
+	}
+	
+	public Train() {
+		super();
+	}
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;
