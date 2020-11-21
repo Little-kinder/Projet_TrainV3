@@ -6,14 +6,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 @Entity
+
+@NamedQueries({ @NamedQuery(name = "findAllPassagers", query = "select i from Passager i"),
+	@NamedQuery(name = "countPassagers", query = "select count(i) from Passager i"),
+	@NamedQuery(name = "findPassagerByName", query = "select i from Passager i where i.name = :name"),
+	@NamedQuery(name = "deletePassagerByName", query = "delete from Passager i where i.name = :name"),
+	@NamedQuery(name = "deleteAllPassagers", query = "delete from Passager") })
+
+
 public class Passager {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idPassager;
+	String name;
 	boolean correspondance;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -26,9 +37,22 @@ public class Passager {
 		super();
 	}
 	
-	public Passager(int idPassager, boolean correspondance) {
+	public Passager(int idPassager) {
 		this.idPassager = idPassager;
+	}
+	
+	public Passager(String name, boolean correspondance, Billet billet) {
+		this.name = name;
 		this.correspondance = correspondance;
+		this.billet = billet;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public Billet getBillet() {
@@ -65,7 +89,7 @@ public class Passager {
 	
 	@Override
 	public String toString() {
-		return "Passager [id=" + idPassager + ", correspondance=" + correspondance + "]";
+		return "Passager [name=" + name + ", correspondance=" + correspondance + ", billet="+ billet +"]";
 	}
 
 }

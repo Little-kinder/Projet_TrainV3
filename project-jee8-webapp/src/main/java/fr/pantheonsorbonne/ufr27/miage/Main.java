@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.ufr27.miage;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Collection;
 import java.util.Locale;
 
 import javax.enterprise.inject.se.SeContainer;
@@ -34,6 +35,8 @@ import fr.pantheonsorbonne.ufr27.miage.jms.conf.JMSProducer;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentAckQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.utils.BrokerUtils;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Billet;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Passager;
 import fr.pantheonsorbonne.ufr27.miage.jpa.TrainPhysique;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.InvoicingServiceImpl;
@@ -101,7 +104,7 @@ public class Main {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-
+		
 		Locale.setDefault(Locale.ENGLISH);
 		SLF4JBridgeHandler.removeHandlersForRootLogger();
 		SLF4JBridgeHandler.install();
@@ -109,10 +112,11 @@ public class Main {
 		
 		BrokerUtils.startBroker();
 		
+		
 		PersistenceConf pc = new PersistenceConf();
 		pc.getEM();
 		pc.launchH2WS();
-		
+	
 		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
 
 		try (SeContainer container = initializer.addPackages(true, Main.class.getPackage()).initialize()) {
@@ -121,30 +125,66 @@ public class Main {
 			tx.begin();
 			try {
 				jpa.createTrainPhysique();
+				jpa.createPassagers();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			tx.commit();
-	
+			jpa.listPassagers();
+
 			System.out.println(".. done");
+		}
 		
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
 				BASE_URI));
 		System.in.read();
+		
 		server.stop();
-		}
+		
 		
 	}
 	
 	private void createTrainPhysique() {
-//		int numOfEmployees = manager.createQuery("Select a From Employee a", Employee.class).getResultList().size();
+	
+		manager.getTransaction().begin();
+		TrainPhysique trainphysique = new TrainPhysique(11);
+		manager.persist(trainphysique); // cree trainphysique
 		
-			TrainPhysique trainphysique = new TrainPhysique(11);
-			manager.persist(trainphysique); // cree trainphysique
-			
-//			manager.persist(new Employee("Jakab Gipsz", trainphysique));
-//			manager.persist(new Employee("Captain Nemo", trainphysique));
+		Billet billet = new Billet(5);
+		manager.persist(billet);
+		
+		Passager passager = new Passager("Toto", false, billet);
+		manager.persist(passager);
+		manager.flush();
+	
+
+		manager.getTransaction().commit();
+	}
+	
+	private void createPassagers() {
+		long numOfPassagers = manager.createNamedQuery("countPassagers", Long.class).getSingleResult();
+		if (numOfPassagers > 0) {
+			int res = manager.createNamedQuery("deleteAllPassagers").executeUpdate();
+			System.out.println("Deleted  " + res + " Passagers");
+
+			int dep = manager.createNamedQuery("deleteAllBillets").executeUpdate();
+			System.out.println("Deleted  " + dep + " Billet(s)");
+		}
+
+		Billet billet = new Billet(10);
+		manager.persist(billet);
+		manager.persist(new Passager("Toto", true, billet));
+		manager.persist(new Passager("Fifi", false, billet));
+
+	}
+
+	private void listPassagers() {
+		Collection<Passager> passagers = manager.createNamedQuery("findAllPassagers", Passager.class).getResultList();
+		for (Passager e : passagers) {
+			System.out.println(e);
+	}
+
 	}
 
 
