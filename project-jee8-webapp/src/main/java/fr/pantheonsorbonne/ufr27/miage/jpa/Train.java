@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Train {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;

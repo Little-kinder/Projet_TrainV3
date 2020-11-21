@@ -28,6 +28,7 @@ public class TrainDAO {
 	EntityManager em;
 
 	/*public LocalDateTime getHeureDepart(int idTrain) throws IOException{
+	public LocalDateTime getHeureDepart(int idTrain) throws IOException{
 
 		Train currtrain = em.find(Train.class, idTrain);
 		if (currtrain == null) {
@@ -44,6 +45,7 @@ public class TrainDAO {
 		}
 		return currtrain.getHeureArrivee();
 	}
+<<<<<<< HEAD
 	*/
 	
 	public boolean getEtat(int idTrain) throws IOException{
@@ -56,13 +58,16 @@ public class TrainDAO {
 	}
 	
 	/*public String getTypeTrain(int idTrain) throws IOException{
+	public String getTypeTrain(int idTrain) throws IOException{
 
 		Train currtrain = em.find(Train.class, idTrain);
 		if (currtrain == null) {
 			throw new IOException();
 		}
 		return currtrain.getTypeTrain();
+
 	}*/
+
 	public List<Passager> getPassager(int idTrain) throws IOException {
 
 		Train currtrain = em.find(Train.class, idTrain);

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Gare {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idGare;
