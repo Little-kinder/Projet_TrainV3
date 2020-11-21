@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -21,12 +20,22 @@ public class Train {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;
-	TrainPhysique trainphysique;
 	String typeTrain;
 	LocalDateTime heureDepart;
 	LocalDateTime heureArrivee;
 	boolean etat;
 	int nbPassager;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
+	Set<TrainPhysique> listTrain = new HashSet<>();
+	
+	public Set<TrainPhysique> getListTrain() {
+		return listTrain;
+	}
+	public void setListTrain(Set<TrainPhysique> listTrain) {
+		this.listTrain = listTrain;
+	}
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
 	Set<Passager>passagers= new HashSet<>();
 	
@@ -41,7 +50,7 @@ public class Train {
 		this.idTrain = idTrain;
 	}
 	public String getTypeTrain() {
-		return trainphysique.getType();
+		return typeTrain;
 	}
 	public void setTypeTrain(String typeTrain) {
 		this.typeTrain = typeTrain;
@@ -82,4 +91,5 @@ public class Train {
 	public void setChemin(List<Arret> chemin) {
 		this.chemin = chemin;
 	}
+
 }
