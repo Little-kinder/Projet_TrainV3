@@ -145,8 +145,7 @@ public class Main {
 			
 //			manager.persist(new Employee("Jakab Gipsz", trainphysique));
 //			manager.persist(new Employee("Captain Nemo", trainphysique));
-
-		
 	}
-	
+
+
 }

@@ -35,5 +35,17 @@ public class Billet {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	Passager passager;
+	
+	public Billet() {
+		super();
+	}
+	
+	public Billet(int idBillet) {
+		this.idBillet = idBillet;
+	}
 
+	@Override
+	public String toString() {
+		return "Billet [id=" + idBillet + "]";
+	}
 }

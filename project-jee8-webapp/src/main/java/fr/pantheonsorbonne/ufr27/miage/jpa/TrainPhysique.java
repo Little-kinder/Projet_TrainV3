@@ -20,6 +20,7 @@ public class TrainPhysique {
 	public TrainPhysique(int idTrainPhysique) {
 		this.idTrainPhysique = idTrainPhysique;
 	}
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +30,11 @@ public class TrainPhysique {
 	Train train;
 	
 	String localicationTrain;
+	
+	@Override
+	public String toString() {
+		return "TrainPhysique [id=" + idTrainPhysique + "]";
+	}
 
 	public int getIdTrainPhysique() {
 		return idTrainPhysique;

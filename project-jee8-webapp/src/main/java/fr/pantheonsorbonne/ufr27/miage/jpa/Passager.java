@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Passager {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idPassager;
@@ -21,6 +21,15 @@ public class Passager {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	Billet billet = null;
+	
+	public Passager() {
+		super();
+	}
+	
+	public Passager(int idPassager, boolean correspondance) {
+		this.idPassager = idPassager;
+		this.correspondance = correspondance;
+	}
 	
 	public Billet getBillet() {
 		return billet;
@@ -52,6 +61,11 @@ public class Passager {
 
 	public void setTrain(Train train) {
 		this.train = train;
+	}
+	
+	@Override
+	public String toString() {
+		return "Passager [id=" + idPassager + ", correspondance=" + correspondance + "]";
 	}
 
 }
