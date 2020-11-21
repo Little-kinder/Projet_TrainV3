@@ -21,6 +21,7 @@ public class Gare {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idGare;
+	
 	public int getIdGare() {
 		return idGare;
 	}
@@ -41,5 +42,19 @@ public class Gare {
 	}
 	String ville;
 	String localisation;
+	
+	public Gare() {
+		
+	}
+	public Gare(int idGare, String ville, String localisation) {
+		this.idGare = idGare;
+		this.ville = ville;
+		this.localisation = localisation;
+	}
+	
+	@Override
+	public String toString() {
+		return "Gare [id=" + idGare + ", ville=" + ville + ", localisation=" + localisation + " ]";
+	}
 
 }
