@@ -16,7 +16,6 @@ public class Arret {
 	int idArret;
 	/*Un trajet à plusieurs arrets, mais un arret n'a qu'un seul trajet */
 	@ManyToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "train")
 	Train train;
 	
 	

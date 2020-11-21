@@ -4,5 +4,12 @@ import javax.persistence.Entity;
 
 @Entity
 public class TrainResNo extends TrainPhysique{
+	
+	String type = "TGV";	
+	
+	public String getType() {
+		return type;
+	}
 
+	
 }
