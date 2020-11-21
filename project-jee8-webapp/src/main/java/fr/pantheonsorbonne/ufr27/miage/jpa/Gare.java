@@ -7,9 +7,15 @@ import javax.persistence.Id;
 
 @Entity
 public class Gare {
+	
+	public Gare(int idGare, String ville, String localisation) {
+		super();
+		this.idGare = idGare;
+		this.ville = ville;
+		this.localisation = localisation;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int idGare;
 	public int getIdGare() {
 		return idGare;

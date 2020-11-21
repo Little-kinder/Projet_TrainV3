@@ -13,6 +13,18 @@ public class Arret {
 
 	@Id
 	int idArret;
+	/*Un trajet à plusieurs arrets, mais un arret n'a qu'un seul trajet */
+	@ManyToOne(cascade = CascadeType.ALL)
+	Train train;
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	Gare gare;
+	
+	
+	int numeroVoix;
+	LocalDateTime heureDepart;
+	LocalDateTime heureArrivee;
 	
 	public int getIdArret() {
 		return idArret;
@@ -26,12 +38,7 @@ public class Arret {
 	public void setTrain(Train train) {
 		this.train = train;
 	}
-	public TrainPhysique getTrainPhysique() {
-		return trainPhysique;
-	}
-	public void setTrainPhysique(TrainPhysique trainPhysique) {
-		this.trainPhysique = trainPhysique;
-	}
+	
 	public Gare getGare() {
 		return gare;
 	}
@@ -56,16 +63,7 @@ public class Arret {
 	public void setHeureArrivee(LocalDateTime heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
-	@ManyToOne(cascade = CascadeType.ALL)
-	Train train;
-	@ManyToOne(cascade = CascadeType.ALL)
-	TrainPhysique trainPhysique;
-	@ManyToOne(cascade = CascadeType.ALL)
-	Gare gare;
+
 	
-	
-	int numeroVoix;
-	LocalDateTime heureDepart;
-	LocalDateTime heureArrivee;
-	
+
 }

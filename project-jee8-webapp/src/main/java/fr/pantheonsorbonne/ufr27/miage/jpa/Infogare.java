@@ -1,9 +1,12 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Infogare {
@@ -12,13 +15,8 @@ public class Infogare {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idInfogare;
 	String typeInfogare;
-//	@
-	Train train;
-//	@
-	Train chemin;
-//	@
-	TrainPhysique trainPhysique;
-//	@
+	
+	@ManyToOne(cascade = CascadeType.ALL)
 	Gare gare;
 	
 	public int getIdInfogare() {
@@ -32,24 +30,6 @@ public class Infogare {
 	}
 	public void setTypeInfogare(String typeInfogare) {
 		this.typeInfogare = typeInfogare;
-	}
-	public Train getTrain() {
-		return train;
-	}
-	public void setTrain(Train train) {
-		this.train = train;
-	}
-	public Train getChemin() {
-		return chemin;
-	}
-	public void setChemin(Train chemin) {
-		this.chemin = chemin;
-	}
-	public TrainPhysique getTrainPhysique() {
-		return trainPhysique;
-	}
-	public void setTrainPhysique(TrainPhysique trainPhysique) {
-		this.trainPhysique = trainPhysique;
 	}
 	public Gare getGare() {
 		return gare;

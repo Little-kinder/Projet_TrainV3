@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Passager {
@@ -15,9 +16,20 @@ public class Passager {
 	int idPassager;
 	boolean correspondance;
 	
-	@ManyToOne(cascade = CascadeType.ALL)// manyto many
+	@ManyToOne(cascade = CascadeType.ALL)
 	Train train;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	Billet billet = null;
+	
+	public Billet getBillet() {
+		return billet;
+	}
+
+	public void setBillet(Billet billet) {
+		this.billet = billet;
+	}
+
 	public int getIdPassager() {
 		return idPassager;
 	}
