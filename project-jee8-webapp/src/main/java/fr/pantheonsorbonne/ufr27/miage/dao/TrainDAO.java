@@ -26,7 +26,7 @@ public class TrainDAO {
 
 	@Inject
 	EntityManager em;
-
+	
 	public LocalDateTime getHeureDepart(int idTrain) throws IOException{
 
 		Train currtrain = em.find(Train.class, idTrain);
@@ -54,13 +54,13 @@ public class TrainDAO {
 		return currtrain.isEtat();
 	}
 	
-	public String getTypeTrain(int idTrain) throws IOException{
+	public String getTypeTrainPhysique(int idTrainPhysique) throws IOException{
 
-		Train currtrain = em.find(Train.class, idTrain);
+		TrainPhysique currtrain = em.find(TrainPhysique.class, idTrainPhysique);
 		if (currtrain == null) {
 			throw new IOException();
 		}
-		return currtrain.getTypeTrain();
+		return currtrain.getType();
 	}
 	public List<Passager> getPassager(int idTrain) throws IOException {
 
@@ -97,6 +97,9 @@ public class TrainDAO {
 
 		return TrainPhyPassager;
 		
-	} 
+	}
+
 	
+	
+	// AJOUTER DONNEE MODIFIER PAR LINFOCENTRE ICI
 }
