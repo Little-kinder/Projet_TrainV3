@@ -97,48 +97,45 @@ public class BDDService {
 		for (Passager p : passagers) {
 			em.persist(p);
 		}
-		
-		// nombre de passagers
-		  Long res = em.createNamedQuery("countPassagers",Long.class).getSingleResult();
-		  System.out.println("There are " + res + " Passagers"); 
 
-		//suppression passagers
-		  if (res > 0) { 
-			  int res1 = em.createNamedQuery("deleteAllPassagers").executeUpdate();
-			  System.out.println("Deleted  " + res1 + " Passagers"); 
-		  }
-		
-		
-			  
-		//liste de passagers
+		// Nombre de passagers
+		Long res = em.createNamedQuery("countPassagers", Long.class).getSingleResult();
+		System.out.println("There are " + res + " Passagers");
+
+		// Suppression passagers
+		if (res > 0) {
+			int res1 = em.createNamedQuery("deleteAllPassagers").executeUpdate();
+			System.out.println("Deleted  " + res1 + " Passagers");
+		}
+
+		// Liste de passagers
 		Collection<Passager> pgrs = em.createNamedQuery("findAllPassagers", Passager.class).getResultList();
-				for (Passager e : pgrs) {
-					 System.out.println(e); }
-	
-//		//suppression billets		
+		for (Passager e : pgrs) {
+			System.out.println(e);
+		}
+		
+		// Trouver TrainPhysique par id
+		TrainPhysique trainp = em.createNamedQuery("findTrainPById", TrainPhysique.class)
+						.setParameter("idTrainPhysique", 1).getSingleResult();
+		System.out.println(trainp);
+
+		// Trouver la liste des billets dont les idtrainPhysiques sont 1
+		Collection<Billet> bs = em.createNamedQuery("findBilletByTrainP", Billet.class)
+						.setParameter("idTrainPhysique", 1).getResultList();
+		for (Billet e : bs) {
+			System.out.println(e);
+		}
+
+
+//		// Suppression tous Billets		
 //	  int dep = em.createNamedQuery("deleteAllBillets").executeUpdate();
 //	  System.out.println("Deleted  " + dep + " Billet(s)");
 //		 
-//				 
+//		// Suppression tous TrainPhysiques		 
 //		int dep2 = em.createNamedQuery("deleteAllTrainsP").executeUpdate();
 //		System.out.println("Deleted  " + dep2 + " TrainP(s)");
-			
-		//Trouver TrainPhysique par id
-		
-		TrainPhysique trainp = em.createNamedQuery("findTrainPById", TrainPhysique.class)
-                .setParameter("idTrainPhysique", 1)
-                .getSingleResult();
-			System.out.println(trainp);
-			
-	
-			// Trouver la liste des billets dont les idtrainPhysiques sont 1
-			Collection<Billet> bs = em.createNamedQuery("findBilletByTrainP", Billet.class)
-	                .setParameter("idTrainPhysique", 1)
-	                .getResultList();
-			for (Billet e : bs) {
-				 System.out.println(e); }
-			System.out.println(bs);
 
+		
 		em.getTransaction().commit();
 	}
 
