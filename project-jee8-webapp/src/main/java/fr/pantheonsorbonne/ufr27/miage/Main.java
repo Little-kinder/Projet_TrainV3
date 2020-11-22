@@ -9,7 +9,6 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
@@ -26,20 +25,18 @@ import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
 import fr.pantheonsorbonne.ufr27.miage.exception.ExceptionMapper;
 import fr.pantheonsorbonne.ufr27.miage.jms.PaymentValidationAckownledgerBean;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.ConnectionFactorySupplier;
-import fr.pantheonsorbonne.ufr27.miage.jms.conf.JMSProducer;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentAckQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.utils.BrokerUtils;
+import fr.pantheonsorbonne.ufr27.miage.jpa.service.BDDService;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.InvoicingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.MailingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.PaymentServiceImpl;
-import fr.pantheonsorbonne.ufr27.miage.service.impl.UserServiceImpl;
 import service.GymService;
 import service.InvoicingService;
 import service.MailingService;
 import service.PaymentService;
-import service.UserService;
 
 /**
  * Main class.
@@ -48,6 +45,7 @@ import service.UserService;
 public class Main {
 
 	public static final String BASE_URI = "http://localhost:8080/";
+
 
 	public static HttpServer startServer() {
 
@@ -61,11 +59,11 @@ public class Main {
 					@Override
 					protected void configure() {
 
-						/*bind(GymServiceImpl.class).to(GymService.class);
+						bind(GymServiceImpl.class).to(GymService.class);
 						bind(PaymentServiceImpl.class).to(PaymentService.class);
 						bind(InvoicingServiceImpl.class).to(InvoicingService.class);
 						bind(InvoiceDAO.class).to(InvoiceDAO.class);
-						bind(UserDAO.class).to(UserDAO.class);
+						//bind(UserDAO.class).to(UserDAO.class);
 						bind(MailingServiceImpl.class).to(MailingService.class);
 						bind(PaymentDAO.class).to(PaymentDAO.class);
 						bindFactory(EMFFactory.class).to(EntityManagerFactory.class).in(Singleton.class);
@@ -74,8 +72,8 @@ public class Main {
 						bindFactory(PaymentAckQueueSupplier.class).to(Queue.class).named("PaymentAckQueue").in(Singleton.class);
 						bindFactory(PaymentQueueSupplier.class).to(Queue.class).named("PaymentQueue").in(Singleton.class);
 						
-						bind(PaymentProcessorBean.class).to(PaymentProcessorBean.class).in(Singleton.class);
-						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class).in(Singleton.class);*/
+//						bind(PaymentProcessorBean.class).to(PaymentProcessorBean.class).in(Singleton.class);
+						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class).in(Singleton.class);
 
 					}
 
@@ -83,34 +81,40 @@ public class Main {
 
 		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 	}
-
+	
 	/**
 	 * Main method.beanbeanbeanbean
 	 * 
 	 * @param args
 	 * @throws IOException
 	 */
-	public static void main(String[] args) throws IOException {
-
+	@SuppressWarnings("deprecation")
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		
 		Locale.setDefault(Locale.ENGLISH);
 		SLF4JBridgeHandler.removeHandlersForRootLogger();
 		SLF4JBridgeHandler.install();
 		final HttpServer server = startServer();
 		
-		//BrokerUtils.startBroker();
-		
-		//PersistenceConf pc = 		new PersistenceConf();
-		//pc.getEM();
-		//pc.launchH2WS();
+		BrokerUtils.startBroker();
 		
 		
+		PersistenceConf pc = new PersistenceConf();
+		pc.getEM();
+		pc.launchH2WS();
+		
+		BDDService bdd = new BDDService(pc.getEM());
+		bdd.input();
 		
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
 				BASE_URI));
 		System.in.read();
+		
 		server.stop();
 		
 		
 	}
+
+
 }

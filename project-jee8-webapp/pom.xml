@@ -158,6 +158,13 @@
 
 		</dependency>
 
+		<!-- MySQL database driver -->
+	    <dependency>
+	        <groupId>mysql</groupId>
+	        <artifactId>mysql-connector-java</artifactId>
+	        <version>8.0.22</version>
+	    </dependency>
+	    
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>artemis-jms-client</artifactId>
@@ -168,6 +175,15 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>artemis-server</artifactId>
 			<version>2.10.1</version>
+		</dependency>
+		
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink -->
+		<dependency>
+		    <groupId>org.eclipse.persistence</groupId>
+		    <artifactId>eclipselink</artifactId>
+		    <version>3.0.0-M1</version>
 		</dependency>
 
 	</dependencies>
