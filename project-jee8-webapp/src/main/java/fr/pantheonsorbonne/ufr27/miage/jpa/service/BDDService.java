@@ -1,5 +1,6 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa.service;
 
+import java.time.LocalDateTime;
 import java.util.stream.IntStream;
 
 import javax.persistence.EntityManager;
@@ -39,26 +40,31 @@ public class BDDService {
 			em.persist(g);
 		}
 
-		Train train = new Train(1, "20:00:00", "22:00:00", true, 10);
-		Train train2 = new Train(2, "10:00:00", "12:00:00", false, 20);
-		Train train3 = new Train(3, "15:30:00", "17:00:00", true, 30);
-		Train train4 = new Train(4, "21:00:00", "23:00:00", true, 50);
-		Train train5 = new Train(5, "12:00:00", "13:00:00", false, 15);
-
-		Train[] trains = { train, train2, train3, train4, train5 };
-		for (Train t : trains) {
-			em.persist(t);
-		}
-
-		Arret arret = new Arret(1, 14, "22:00:00", "22:03:00", train, gare2);
-		Arret arret2 = new Arret(2, 1, "21:00:00", "21:04:00", train5, gare);
-		Arret arret3 = new Arret(3, 38, "19:50:00", "19:55:00", train4, gare4);
-		Arret arret4 = new Arret(4, 116, "15:00:00", "15:03:00", train2, gare3);
-		Arret arret5 = new Arret(5, 19, "18:35:00", "18:39:00", train, gare);
+		Arret arret = new Arret(1, 14, gare2);
+		Arret arret2 = new Arret(2, 1, gare);
+		Arret arret3 = new Arret(3, 38, gare4);
+		Arret arret4 = new Arret(4, 116, gare3);
+		Arret arret5 = new Arret(5, 19, gare);
 
 		Arret[] arrets = { arret, arret2, arret3, arret4, arret5 };
 		for (Arret a : arrets) {
 			em.persist(a);
+		}
+
+		// Année, mois, jour, heure, minute
+		Train train = new Train(1, LocalDateTime.of(2020, 5, 12, 15, 56), LocalDateTime.of(2020, 5, 12, 15, 59), true,
+				10, arret, arret2);
+		Train train2 = new Train(2, LocalDateTime.of(2020, 12, 8, 20, 00), LocalDateTime.of(2020, 12, 8, 20, 05), false,
+				20, arret3, arret);
+		Train train3 = new Train(3, LocalDateTime.of(2020, 5, 22, 21, 45), LocalDateTime.of(2020, 5, 22, 21, 55), true,
+				30, arret5, arret4);
+		Train train4 = new Train(4, LocalDateTime.of(2020, 6, 9, 1, 48), LocalDateTime.of(2020, 6, 9, 2, 00), true, 50, arret, arret3);
+		Train train5 = new Train(5, LocalDateTime.of(2020, 5, 1, 19, 35), LocalDateTime.of(2020, 5, 1, 19, 40), false,
+				15, arret2, arret4);
+
+		Train[] trains = { train, train2, train3, train4, train5 };
+		for (Train t : trains) {
+			em.persist(t);
 		}
 
 		Passager passager = new Passager(1, "Ines");
@@ -82,18 +88,15 @@ public class BDDService {
 		for (TrainPhysique tr : tps) {
 			em.persist(tr);
 		}
-		
+
 		// Init Billet
 		IntStream.range(0, 5).forEach(i -> em.persist(new Billet(i + 1, tps[i], passagers[i])));
 
-			
-	
-		String[] typeinfogare = new String [] { "arrivés", "informations", "départs", "arrivés", "perturbations"};
+		//Init infoGare
+		String[] typeinfogare = new String[] { "arrivés", "informations", "départs", "arrivés", "perturbations" };
 		IntStream.range(0, 5).forEach(i -> em.persist(new Infogare(i + 1, typeinfogare[i], gares[i])));
+
 		
-		
-		
-		// TrainPhysique tp = new TrainPhysique();
 
 		/*
 		 * TrainPhysique trainphysique = new TrainPhysique(11);

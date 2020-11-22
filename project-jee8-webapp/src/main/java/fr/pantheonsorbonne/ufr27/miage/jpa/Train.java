@@ -1,9 +1,11 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,8 +24,8 @@ public class Train {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;
-	String heureDepart;
-	String heureArrivee;
+	LocalDateTime heureDepart;
+	LocalDateTime heureArrivee;
 	boolean etat;
 	int nbPassager;
 	
@@ -33,31 +35,30 @@ public class Train {
 	public Set<TrainPhysique> getListTrain() {
 		return listTrain;
 	}
-	public void setListTrain(Set<TrainPhysique> listTrain) {
-		this.listTrain = listTrain;
-	}
-	public String getHeureDepart() {
-		return heureDepart;
-	}
-	public void setHeureDepart(String heureDepart) {
-		this.heureDepart = heureDepart;
-	}
-	public String getHeureArrivee() {
-		return heureArrivee;
-	}
-	public void setHeureArrivee(String heureArrivee) {
-		this.heureArrivee = heureArrivee;
-	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
+	Set<Passager>passagers= new HashSet<>();
 	
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
+//	@JoinColumn(name="idarret", nullable=false)
+//	List<Arret>chemin = new ArrayList<Arret>();
+	Arret depart, arrivee;
 	public Train() {
 	}
 	
-	public Train(int idTrain, String heureDepart, String heureArrivee, boolean etat, int nbPassager) {
+	public Train(int idTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee, boolean etat, int nbPassager, Arret depart, Arret arrivee) {
+		Objects.requireNonNull(depart);
+		Objects.requireNonNull(arrivee);
+		if (heureDepart.isAfter(heureArrivee)) {
+			throw new IllegalArgumentException("L'heure de départ est erronée, heureDépart: " + heureDepart + " heureArrivée: " + heureArrivee);
+		}
 		this.idTrain = idTrain;
 		this.heureDepart = heureDepart;
 		this.heureArrivee = heureArrivee;
 		this.etat = etat;
 		this.nbPassager = nbPassager;
+		this.depart = depart;
+		this.arrivee = arrivee;
 	}
 
 	@Override
@@ -65,43 +66,49 @@ public class Train {
 		return "Train [id=" + idTrain + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", nbPassager=" + nbPassager + "]";
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
-	Set<Passager>passagers= new HashSet<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
-	@JoinColumn(name="idarret", nullable=false)
-	List<Arret>chemin = new ArrayList<Arret>();
 	
 	public int getIdTrain() {
 		return idTrain;
-	}
-	public void setIdTrain(int idTrain) {
-		this.idTrain = idTrain;
 	}
 
 	public boolean isEtat() {
 		return etat;
 	}
-	public void setEtat(boolean etat) {
-		this.etat = etat;
-	}
+
 	public int getNbPassager() {
 		return nbPassager;
 	}
-	public void setNbPassager(int nbPassager) {
-		this.nbPassager = nbPassager;
-	}
+
 	public Set<Passager> getPassagers() {
 		return passagers;
 	}
 	public void setPassagers(Set<Passager> passagers) {
 		this.passagers = passagers;
 	}
-	public List<Arret> getChemin() {
-		return chemin;
+	
+	public Arret getDepart() {
+		return depart;
 	}
-	public void setChemin(List<Arret> chemin) {
-		this.chemin = chemin;
+	
+	public Arret getArrivee() {
+		return arrivee;
 	}
+	
+	public LocalDateTime getHeureDepart() {
+		return heureDepart;
+	}
+
+	public LocalDateTime getHeureArrivee() {
+		return heureArrivee;
+	}
+
+
+
+//	public List<Arret> getChemin() {
+//		return chemin;
+//	}
+//	public void setChemin(List<Arret> chemin) {
+//		this.chemin = chemin;
+//	}
 
 }

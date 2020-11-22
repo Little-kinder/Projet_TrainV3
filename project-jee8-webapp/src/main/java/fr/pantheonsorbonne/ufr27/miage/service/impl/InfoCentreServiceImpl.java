@@ -40,7 +40,7 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 	
 	@Override
 	public void ajoutRetard(Train train, long retard) throws IOException {
-//		TrainDAO.getHeureArr(train.getIdTrain()).plusMinutes(retard);
+		TrainDAO.getHeureArr(train.getIdTrain()).plusMinutes(retard);
 
 		
 	}
@@ -89,9 +89,9 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 			if(!(TrainDAO.getArrets(idTrain).isEmpty())) {
 				List<Arret> liste_arret = TrainDAO.getArrets(idTrain);
 				
-//				for(Arret i : liste_arret) {
-//					i.getHeureDepart().plusMinutes(retard);
-//				}
+				for(Arret i : liste_arret) {
+					i.getHeureDepart().plusMinutes(retard);
+				}
 			}
 			
 		}

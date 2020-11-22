@@ -59,20 +59,6 @@ public class ArretResource {
 	public Response putIdGare(Gare idGare) throws DatatypeConfigurationException{
 		arret.setIdGare(idGare);
 		this.idGare=idGare;
-		/*SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-
-		try (SeContainer container = initializer.addPackages(true, ArretResource.class.getPackage()).initialize()) {
-			ArretResource jpa = container.select(ArretResource.class).get();
-			EntityTransaction tx = jpa.manager.getTransaction();
-			tx.begin();
-			try {
-				jpa.creerGare(idGare);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			System.out.println(".. done");
-
-		}*/
 		return Response.ok(idGare).build();
 	}
 	

@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.ufr27.miage.dao;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,24 +28,24 @@ public class TrainDAO {
 	@Inject
 	EntityManager em;
 	
-//	public LocalDateTime getHeureDepart(int idTrain) throws IOException{
-//
-//		Train currtrain = em.find(Train.class, idTrain);
-//		if (currtrain == null) {
-//			throw new IOException();
-//		}
-//		return currtrain.getHeureDepart();
-//	}
-//
-//	public LocalDateTime getHeureArr(int idTrain) throws IOException{
-//
-//		Train currtrain = em.find(Train.class, idTrain);
-//		if (currtrain == null) {
-//			throw new IOException();
-//		}
-//		return currtrain.getHeureArrivee();
-//	}
-//	
+	public LocalDateTime getHeureDepart(int idTrain) throws IOException{
+
+		Train currtrain = em.find(Train.class, idTrain);
+		if (currtrain == null) {
+			throw new IOException();
+		}
+		return currtrain.getHeureDepart();
+	}
+
+	public LocalDateTime getHeureArr(int idTrain) throws IOException{
+
+		Train currtrain = em.find(Train.class, idTrain);
+		if (currtrain == null) {
+			throw new IOException();
+		}
+		return currtrain.getHeureArrivee();
+	}
+	
 	public boolean getEtat(int idTrain) throws IOException{
 
 		Train currtrain = em.find(Train.class, idTrain);
@@ -77,9 +78,12 @@ public class TrainDAO {
 		if (currtrain == null) {
 			throw new IOException();
 		}
-		List<Arret> chemin = (List<Arret>) currtrain.getChemin();
+		List<Arret> chemin = new ArrayList<Arret>();;
+		chemin.add(currtrain.getDepart());
+		chemin.add(currtrain.getArrivee());
 		return chemin;
 	}
+	
 	
 	public List<TrainPhysique> getTrainPhyPassager(int idPassager){
 		

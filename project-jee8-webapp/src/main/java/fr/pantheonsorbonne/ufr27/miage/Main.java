@@ -2,19 +2,13 @@ package fr.pantheonsorbonne.ufr27.miage;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Collection;
 import java.util.Locale;
 
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
@@ -31,24 +25,18 @@ import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
 import fr.pantheonsorbonne.ufr27.miage.exception.ExceptionMapper;
 import fr.pantheonsorbonne.ufr27.miage.jms.PaymentValidationAckownledgerBean;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.ConnectionFactorySupplier;
-import fr.pantheonsorbonne.ufr27.miage.jms.conf.JMSProducer;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentAckQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.utils.BrokerUtils;
-import fr.pantheonsorbonne.ufr27.miage.jpa.Billet;
-import fr.pantheonsorbonne.ufr27.miage.jpa.Passager;
-import fr.pantheonsorbonne.ufr27.miage.jpa.TrainPhysique;
 import fr.pantheonsorbonne.ufr27.miage.jpa.service.BDDService;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.InvoicingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.MailingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.PaymentServiceImpl;
-import fr.pantheonsorbonne.ufr27.miage.service.impl.UserServiceImpl;
 import service.GymService;
 import service.InvoicingService;
 import service.MailingService;
 import service.PaymentService;
-import service.UserService;
 
 /**
  * Main class.
