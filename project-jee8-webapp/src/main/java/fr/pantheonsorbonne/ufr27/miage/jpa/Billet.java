@@ -19,12 +19,10 @@ public class Billet {
 	    }
 
 
-	    public Billet(int idBillet,TrainPhysique trainPhysique, Passager passager) {
+	    public Billet(int idBillet,TrainPhysique trainPhysique) {
 	    	Objects.requireNonNull(trainPhysique);
-			Objects.requireNonNull(passager);
 	    	this.idBillet = idBillet;
 	        this.trainPhysique = trainPhysique;
-	        this.passager = passager;
 	    }
 
 	    public int getIdBillet() {
@@ -37,25 +35,22 @@ public class Billet {
 	    @ManyToOne(cascade = CascadeType.ALL)
 	    TrainPhysique trainPhysique;
 
-	    @OneToOne(cascade = CascadeType.ALL)
-	    Passager passager;
-
 	    public TrainPhysique getTrainPhysique() {
 	        return trainPhysique;
 	    }
 	    public void setTrainPhysique(TrainPhysique trainPhysique) {
 	        this.trainPhysique = trainPhysique;
 	    }
-	    public Passager getPassager() {
-	        return passager;
-	    }
-	    public void setPassager(Passager passager) {
-	        this.passager = passager;
-	    }
+//	    public Passager getPassager() {
+//	        return passager;
+//	    }
+//	    public void setPassager(Passager passager) {
+//	        this.passager = passager;
+//	    }
 
 	    @Override
 	    public String toString() {
-	        return "Billet [idBillet=" + idBillet + ", trainPhysique=" + trainPhysique + ", passager=" + passager + "]";
+	        return "Billet [idBillet=" + idBillet + ", trainPhysique=" + trainPhysique + "]";
 	    }
 	
 }

@@ -58,24 +58,14 @@ public class BDDService {
 				20, arret3, arret);
 		Train train3 = new Train(3, LocalDateTime.of(2020, 5, 22, 21, 45), LocalDateTime.of(2020, 5, 22, 21, 55), true,
 				30, arret5, arret4);
-		Train train4 = new Train(4, LocalDateTime.of(2020, 6, 9, 1, 48), LocalDateTime.of(2020, 6, 9, 2, 00), true, 50, arret, arret3);
+		Train train4 = new Train(4, LocalDateTime.of(2020, 6, 9, 1, 48), LocalDateTime.of(2020, 6, 9, 2, 00), true, 50,
+				arret, arret3);
 		Train train5 = new Train(5, LocalDateTime.of(2020, 5, 1, 19, 35), LocalDateTime.of(2020, 5, 1, 19, 40), false,
 				15, arret2, arret4);
 
 		Train[] trains = { train, train2, train3, train4, train5 };
 		for (Train t : trains) {
 			em.persist(t);
-		}
-
-		Passager passager = new Passager(1, "Ines");
-		Passager passager2 = new Passager(2, "Pauline");
-		Passager passager3 = new Passager(3, "Thomas");
-		Passager passager4 = new Passager(4, "Rami");
-		Passager passager5 = new Passager(5, "Luna");
-
-		Passager[] passagers = { passager, passager2, passager3, passager4, passager5 };
-		for (Passager p : passagers) {
-			em.persist(p);
 		}
 
 		TrainPhysique tp = new TrainPhysique(1, train, true, "Paris");
@@ -90,40 +80,39 @@ public class BDDService {
 		}
 
 		// Init Billet
-		IntStream.range(0, 5).forEach(i -> em.persist(new Billet(i + 1, tps[i], passagers[i])));
+		IntStream.range(0, 5).forEach(i -> em.persist(new Billet(i + 1, tps[i])));
 
-		//Init infoGare
+		// Init infoGare
 		String[] typeinfogare = new String[] { "arrivés", "informations", "départs", "arrivés", "perturbations" };
 		IntStream.range(0, 5).forEach(i -> em.persist(new Infogare(i + 1, typeinfogare[i], gares[i])));
 
-		
-		/*
-		 * long numOfPassagers =
-		 * em.createNamedQuery("countPassagers",Long.class).getSingleResult(); if
-		 * (numOfPassagers > 0) { int res =
-		 * em.createNamedQuery("deleteAllPassagers").executeUpdate();
-		 * System.out.println("Deleted  " + res + " Passagers"); }
-		 */
+		Passager passager = new Passager(1, "Ines", false, train, new Billet(6, tp));
+		Passager passager2 = new Passager(2, "Pauline", false, train2, new Billet(9, tp));
+		Passager passager3 = new Passager(3, "Thomas", false, train, new Billet(10, tp2));
+		Passager passager4 = new Passager(4, "Rami", false, train4, new Billet(8, tp4));
+		Passager passager5 = new Passager(5, "Luna", false, train3, new Billet(7, tp5));
 
+		Passager[] passagers = { passager, passager2, passager3, passager4, passager5 };
+		for (Passager p : passagers) {
+			em.persist(p);
+		}
+
+//		  long numOfPassagers = em.createNamedQuery("countPassagers",Long.class).getSingleResult();
+//		  if (numOfPassagers > 0) { 
+//			  int res = em.createNamedQuery("deleteAllPassagers").executeUpdate();
+//			  System.out.println("Deleted  " + res + " Passagers"); 
+//		  }
+		
+		
+			  Long res = em.createNamedQuery("countPassagers",Long.class).getSingleResult();
+			  System.out.println("There are " + res + " Passagers"); 
+		 
+	
 		/*
-		 * TrainPhysique trainphysique = new TrainPhysique(11);
-		 * em.persist(trainphysique); // cree trainphysique
-		 * 
-		 * Billet billet = new Billet(5); em.persist(billet);
-		 * 
-		 * Passager passager = new Passager("Toto", false, billet);
-		 * em.persist(passager); em.flush();
-		 * 
-		 * long numOfPassagers = em.createNamedQuery("countPassagers",
-		 * Long.class).getSingleResult(); if (numOfPassagers > 0) { int res =
-		 * em.createNamedQuery("deleteAllPassagers").executeUpdate();
-		 * System.out.println("Deleted  " + res + " Passagers");
 		 * 
 		 * int dep = em.createNamedQuery("deleteAllBillets").executeUpdate();
 		 * System.out.println("Deleted  " + dep + " Billet(s)");
 		 * 
-		 * em.persist(new Passager("Toto", true, billet)); em.persist(new
-		 * Passager("Fifi", false, billet));
 		 * 
 		 * 
 		 * Collection<Passager> passagers = em.createNamedQuery("findAllPassagers",

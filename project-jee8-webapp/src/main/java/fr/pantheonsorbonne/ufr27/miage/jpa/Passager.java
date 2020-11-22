@@ -1,5 +1,7 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ import javax.persistence.OneToOne;
 
 public class Passager {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idPassager;
@@ -34,19 +37,21 @@ public class Passager {
 	Billet billet = null;
 	
 	public Passager() {
-		super();
 	}
 	
-	public Passager(int idPassager, String name) {
+	
+	
+	public Passager(int idPassager, String name, boolean correspondance, Train train, Billet billet) {
+		Objects.requireNonNull(train);
+		Objects.requireNonNull(name);
+		Objects.requireNonNull(billet);
 		this.idPassager = idPassager;
 		this.name = name;
-	}
-	
-	public Passager(String name, boolean correspondance, Billet billet) {
-		this.name = name;
 		this.correspondance = correspondance;
+		this.train = train;
 		this.billet = billet;
 	}
+
 	
 	public String getName() {
 		return name;

@@ -63,6 +63,7 @@ public class TrainDAO {
 		}
 		return currtrain.getType();
 	}
+	
 	public List<Passager> getPassager(int idTrain) throws IOException {
 
 		Train currtrain = em.find(Train.class, idTrain);
