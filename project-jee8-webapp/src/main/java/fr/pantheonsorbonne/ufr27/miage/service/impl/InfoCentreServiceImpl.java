@@ -89,9 +89,9 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 			if(!(TrainDAO.getArrets(idTrain).isEmpty())) {
 				List<Arret> liste_arret = TrainDAO.getArrets(idTrain);
 				
-				for(Arret i : liste_arret) {
-					i.getHeureDepart().plusMinutes(retard);
-				}
+				/*
+				 * for(Arret i : liste_arret) { i.getHeureDepart().plusMinutes(retard); }
+				 */
 			}
 			
 		}

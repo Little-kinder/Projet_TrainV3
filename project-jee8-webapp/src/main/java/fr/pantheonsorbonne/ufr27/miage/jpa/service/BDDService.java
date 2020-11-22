@@ -97,6 +97,13 @@ public class BDDService {
 		IntStream.range(0, 5).forEach(i -> em.persist(new Infogare(i + 1, typeinfogare[i], gares[i])));
 
 		
+		/*
+		 * long numOfPassagers =
+		 * em.createNamedQuery("countPassagers",Long.class).getSingleResult(); if
+		 * (numOfPassagers > 0) { int res =
+		 * em.createNamedQuery("deleteAllPassagers").executeUpdate();
+		 * System.out.println("Deleted  " + res + " Passagers"); }
+		 */
 
 		/*
 		 * TrainPhysique trainphysique = new TrainPhysique(11);

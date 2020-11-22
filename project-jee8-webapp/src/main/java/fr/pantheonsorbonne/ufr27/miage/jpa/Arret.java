@@ -24,8 +24,8 @@ public class Arret {
 	Gare gare;
 	
 	int numeroVoix;
-	LocalDateTime heureDepart;
-	LocalDateTime heureArrivee;
+//	LocalDateTime heureDepart;
+//	LocalDateTime heureArrivee;
 	
 	public Arret() {
 	}
@@ -64,20 +64,10 @@ public class Arret {
 	public void setNumeroVoix(int numeroVoix) {
 		this.numeroVoix = numeroVoix;
 	}
-	public LocalDateTime getHeureDepart() {
-		return heureDepart;
-	}
-
-	public LocalDateTime getHeureArrivee() {
-		return heureArrivee;
-	}
-
-	
-
-	
-	@Override
-	public String toString() {
-		return "Arret [id=" + idArret + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", numeroVoix=" + numeroVoix + "]";
-	}
+	/*
+	 * public LocalDateTime getHeureDepart() { return heureDepart; }
+	 * 
+	 * public LocalDateTime getHeureArrivee() { return heureArrivee; }
+	 */
 
 }

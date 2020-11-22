@@ -25,7 +25,6 @@ public class TrainPhysique {
 	}
 
 	public TrainPhysique() {
-
 	}
 
 	@Id
