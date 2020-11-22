@@ -21,10 +21,12 @@ import fr.pantheonsorbonne.ufr27.miage.model.jaxb.TrainPhysique;
 public class TrainPhysiqueResource {
 
 	int idTrainPhys;
-
+	TrainPhysique trainP;
 	public TrainPhysiqueResource(@PathParam("id") int idTrainPhys) {
 		this.idTrainPhys = idTrainPhys;
-
+		trainP = new ObjectFactory().createTrainPhysique();
+		trainP.setIdTrainPhys(idTrainPhys);
+		
 	}
 	
 	@POST
