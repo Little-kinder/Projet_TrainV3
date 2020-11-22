@@ -1,5 +1,7 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,14 +16,13 @@ public class Billet {
 	    int idBillet; 
 
 	    public Billet() {
-	        super();
 	    }
 
-	    public Billet(int idBillet) {
-	        this.idBillet = idBillet;
-	    }
 
-	    public Billet(TrainPhysique trainPhysique, Passager passager) {
+	    public Billet(int idBillet,TrainPhysique trainPhysique, Passager passager) {
+	    	Objects.requireNonNull(trainPhysique);
+			Objects.requireNonNull(passager);
+	    	this.idBillet = idBillet;
 	        this.trainPhysique = trainPhysique;
 	        this.passager = passager;
 	    }

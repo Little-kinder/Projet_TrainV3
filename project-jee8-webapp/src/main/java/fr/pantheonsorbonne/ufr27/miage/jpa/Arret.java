@@ -25,7 +25,6 @@ public class Arret {
 	String heureArrivee;
 	
 	public Arret() {
-		super();
 	}
 
 	public Arret(int idArret, int numeroVoix, String heureDepart,
