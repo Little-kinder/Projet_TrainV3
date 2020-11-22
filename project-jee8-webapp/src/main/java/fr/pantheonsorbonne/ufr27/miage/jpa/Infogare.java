@@ -9,15 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name = "showAllDetails", query = "select i from Infogare i")
 public class Infogare {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idInfogare;
 	String typeInfogare;
-	private final static Set typeInfogares = Set.of("arrivés", "départs", "perturbations", "informations");
+	private final static Set<String> typeInfogares = Set.of("arrivés", "départs", "perturbations", "informations");
 	@ManyToOne(cascade = CascadeType.ALL)
 	Gare gare;
 
@@ -61,7 +63,7 @@ public class Infogare {
 
 	@Override
 	public String toString() {
-		return "Gare [id=" + idInfogare + ", typeInfogare=" + typeInfogare + " ]";
+		return "Gare [id=" + idInfogare + ", typeInfogare=" + typeInfogare + ", gare=" + gare + "]";
 	}
 
 }

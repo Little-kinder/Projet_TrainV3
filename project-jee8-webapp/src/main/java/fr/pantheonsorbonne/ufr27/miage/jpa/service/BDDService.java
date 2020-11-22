@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa.service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.stream.IntStream;
 
 import javax.persistence.EntityManager;
@@ -96,29 +97,47 @@ public class BDDService {
 		for (Passager p : passagers) {
 			em.persist(p);
 		}
+		
+		// nombre de passagers
+		  Long res = em.createNamedQuery("countPassagers",Long.class).getSingleResult();
+		  System.out.println("There are " + res + " Passagers"); 
 
-//		  long numOfPassagers = em.createNamedQuery("countPassagers",Long.class).getSingleResult();
-//		  if (numOfPassagers > 0) { 
-//			  int res = em.createNamedQuery("deleteAllPassagers").executeUpdate();
-//			  System.out.println("Deleted  " + res + " Passagers"); 
-//		  }
+		//suppression passagers
+		  if (res > 0) { 
+			  int res1 = em.createNamedQuery("deleteAllPassagers").executeUpdate();
+			  System.out.println("Deleted  " + res1 + " Passagers"); 
+		  }
 		
 		
-			  Long res = em.createNamedQuery("countPassagers",Long.class).getSingleResult();
-			  System.out.println("There are " + res + " Passagers"); 
-		 
+			  
+		//liste de passagers
+		Collection<Passager> pgrs = em.createNamedQuery("findAllPassagers", Passager.class).getResultList();
+				for (Passager e : pgrs) {
+					 System.out.println(e); }
 	
-		/*
-		 * 
-		 * int dep = em.createNamedQuery("deleteAllBillets").executeUpdate();
-		 * System.out.println("Deleted  " + dep + " Billet(s)");
-		 * 
-		 * 
-		 * 
-		 * Collection<Passager> passagers = em.createNamedQuery("findAllPassagers",
-		 * Passager.class).getResultList(); for (Passager e : passagers) {
-		 * System.out.println(e); }
-		 */
+//		//suppression billets		
+//	  int dep = em.createNamedQuery("deleteAllBillets").executeUpdate();
+//	  System.out.println("Deleted  " + dep + " Billet(s)");
+//		 
+//				 
+//		int dep2 = em.createNamedQuery("deleteAllTrainsP").executeUpdate();
+//		System.out.println("Deleted  " + dep2 + " TrainP(s)");
+			
+		//Trouver TrainPhysique par id
+		
+		TrainPhysique trainp = em.createNamedQuery("findTrainPById", TrainPhysique.class)
+                .setParameter("idTrainPhysique", 1)
+                .getSingleResult();
+			System.out.println(trainp);
+			
+	
+			// Trouver la liste des billets dont les idtrainPhysiques sont 1
+			Collection<Billet> bs = em.createNamedQuery("findBilletByTrainP", Billet.class)
+	                .setParameter("idTrainPhysique", 1)
+	                .getResultList();
+			for (Billet e : bs) {
+				 System.out.println(e); }
+			System.out.println(bs);
 
 		em.getTransaction().commit();
 	}

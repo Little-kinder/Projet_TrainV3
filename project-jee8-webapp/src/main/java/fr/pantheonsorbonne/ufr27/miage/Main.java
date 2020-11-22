@@ -88,6 +88,7 @@ public class Main {
 	 * @param args
 	 * @throws IOException
 	 */
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 		Locale.setDefault(Locale.ENGLISH);

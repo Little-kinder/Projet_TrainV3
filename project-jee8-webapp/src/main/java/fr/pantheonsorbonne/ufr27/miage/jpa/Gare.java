@@ -4,8 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({ @NamedQuery(name = "findAllGares", query = "select i from Gare i"),
+	@NamedQuery(name = "countGares", query = "select count(i) from Gare i"),
+	@NamedQuery(name = "findGareByNom", query = "select i from Gare i where i.nom = :nom"),
+	@NamedQuery(name = "deleteGareByNom", query = "delete from Gare i where i.nom = :nom"),
+	@NamedQuery(name = "deleteAllGares", query = "delete from Gare") })
+
 public class Gare {
 
 	@Id
