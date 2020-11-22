@@ -21,10 +21,7 @@ import javax.persistence.OneToMany;
 		@NamedQuery(name = "deleteTrainById", query = "delete from Train i where i.idTrain = :idTrain"),
 		@NamedQuery(name = "deleteAllTrains", query = "delete from Train") })
 public class Train {
-<<<<<<< HEAD
-	
-=======
->>>>>>> origin/ines-cam
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,7 +39,6 @@ public class Train {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
-<<<<<<< HEAD
 	Set<Passager>passagers= new HashSet<>();
 
 //	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
@@ -53,18 +49,10 @@ public class Train {
 	public Train() {
 	}
 
-	public Train(int idTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee, boolean etat, int nbPassager, Arret depart, Arret arrivee) {
-=======
-	Set<Passager> passagers = new HashSet<>();
-
-	Arret depart, arrivee;
-
-	public Train() {
-	}
 
 	public Train(int idTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee, boolean etat, int nbPassager,
 			Arret depart, Arret arrivee) {
->>>>>>> origin/ines-cam
+		
 		Objects.requireNonNull(depart);
 		Objects.requireNonNull(arrivee);
 		if (heureDepart.isAfter(heureArrivee)) {
