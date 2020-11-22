@@ -37,8 +37,9 @@ public class Passager {
 		super();
 	}
 	
-	public Passager(int idPassager) {
+	public Passager(int idPassager, String name) {
 		this.idPassager = idPassager;
+		this.name = name;
 	}
 	
 	public Passager(String name, boolean correspondance, Billet billet) {

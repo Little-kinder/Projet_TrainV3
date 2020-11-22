@@ -61,6 +61,33 @@ public class BDDService {
 	        em.persist(a);
 	    }
 	    
+	    
+	    Passager passager = new Passager(1, "Ines");
+	    Passager passager2 = new Passager(2, "Pauline");
+	    Passager passager3 = new Passager(3, "Thomas");
+	    Passager passager4 = new Passager(4, "Rami");
+	    Passager passager5 = new Passager(5,"Luna");
+
+	    Passager[] passagers = {passager, passager2, passager3, passager4, passager5};
+	    for(Passager p : passagers) {
+	        em.persist(p);
+	    }
+	    
+//	    Billet billet = new Billet(11);
+//	    Billet billet2 = new Passager(2,1,"21:00:00", "21:04:00", train5, gare);
+//	    Billet billet3 = new Passager(3,38,"19:50:00", "19:55:00", train4, gare4);
+//	    Billet billet4 = new Passager(4,116,"15:00:00", "15:03:00", train2, gare3);
+//	    Billet billet5 = new Passager(5,19,"18:35:00", "18:39:00", train, gare);
+//
+//	    Passager[] passagers = {Passager, Passager2, Passager3, Passager4, Passager5};
+//	    for(Passager p : passagers) {
+//	        em.persist(p);
+//	    }
+//	    
+	    
+	    
+	  
+	    
 		//TrainPhysique tp = new TrainPhysique();
 
 		/*	TrainPhysique trainphysique = new TrainPhysique(11);

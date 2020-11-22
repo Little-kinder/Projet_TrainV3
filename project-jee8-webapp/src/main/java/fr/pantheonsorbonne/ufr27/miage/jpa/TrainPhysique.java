@@ -18,9 +18,8 @@ public class TrainPhysique {
 		super();
 	}
 	
-	public TrainPhysique(int idTrainPhysique, String type, Train train, String localicationTrain) {
+	public TrainPhysique(int idTrainPhysique, Train train, String localicationTrain) {
 		this.idTrainPhysique = idTrainPhysique;
-		this.type = type;
 		this.train = train;
 		this.localicationTrain = localicationTrain;
 	}

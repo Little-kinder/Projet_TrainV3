@@ -26,28 +26,25 @@ public class TrainDAO {
 
 	@Inject
 	EntityManager em;
-
-	/*public LocalDateTime getHeureDepart(int idTrain) throws IOException{
-	public LocalDateTime getHeureDepart(int idTrain) throws IOException{
-
-		Train currtrain = em.find(Train.class, idTrain);
-		if (currtrain == null) {
-			throw new IOException();
-		}
-		return currtrain.getHeureDepart();
-	}
-
-	public LocalDateTime getHeureArr(int idTrain) throws IOException{
-
-		Train currtrain = em.find(Train.class, idTrain);
-		if (currtrain == null) {
-			throw new IOException();
-		}
-		return currtrain.getHeureArrivee();
-	}
-<<<<<<< HEAD
-	*/
 	
+//	public LocalDateTime getHeureDepart(int idTrain) throws IOException{
+//
+//		Train currtrain = em.find(Train.class, idTrain);
+//		if (currtrain == null) {
+//			throw new IOException();
+//		}
+//		return currtrain.getHeureDepart();
+//	}
+//
+//	public LocalDateTime getHeureArr(int idTrain) throws IOException{
+//
+//		Train currtrain = em.find(Train.class, idTrain);
+//		if (currtrain == null) {
+//			throw new IOException();
+//		}
+//		return currtrain.getHeureArrivee();
+//	}
+//	
 	public boolean getEtat(int idTrain) throws IOException{
 
 		Train currtrain = em.find(Train.class, idTrain);
@@ -57,17 +54,14 @@ public class TrainDAO {
 		return currtrain.isEtat();
 	}
 	
-	/*public String getTypeTrain(int idTrain) throws IOException{
-	public String getTypeTrain(int idTrain) throws IOException{
+	public String getTypeTrainPhysique(int idTrainPhysique) throws IOException{
 
-		Train currtrain = em.find(Train.class, idTrain);
+		TrainPhysique currtrain = em.find(TrainPhysique.class, idTrainPhysique);
 		if (currtrain == null) {
 			throw new IOException();
 		}
-		return currtrain.getTypeTrain();
-
-	}*/
-
+		return currtrain.getType();
+	}
 	public List<Passager> getPassager(int idTrain) throws IOException {
 
 		Train currtrain = em.find(Train.class, idTrain);
@@ -103,6 +97,20 @@ public class TrainDAO {
 
 		return TrainPhyPassager;
 		
-	} 
+	}
 	
+	public List<TrainPhysique> getTrainPhysiqueTrajet (int idTrain){
+		Train currtrain = em.find(Train.class, idTrain);
+		
+		List<TrainPhysique> liste_TP = null;
+		liste_TP = em.createNativeQuery("select TrainPhysique from Train where idTrain = idTrain")
+				.setParameter("idPassager", idTrain).getResultList();
+		
+		return liste_TP;
+		
+	}
+	
+	
+	
+	// AJOUTER DONNEE MODIFIER PAR LINFOCENTRE ICI
 }
