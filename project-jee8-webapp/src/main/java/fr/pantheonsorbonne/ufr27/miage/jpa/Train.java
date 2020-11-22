@@ -14,10 +14,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 
 @Entity
+@NamedQueries({ @NamedQuery(name = "findAllTrains", query = "select i from Train i"),
+	@NamedQuery(name = "countTrains", query = "select count(i) from Train i"),
+	@NamedQuery(name = "findTrainById", query = "select i from Train i where i.idTrain = :idTrain"),
+	@NamedQuery(name = "deleteTrainById", query = "delete from Train i where i.idTrain = :idTrain"),
+	@NamedQuery(name = "deleteAllTrains", query = "delete from Train") })
 public class Train {
 
 
@@ -63,7 +70,7 @@ public class Train {
 
 	@Override
 	public String toString() {
-		return "Train [id=" + idTrain + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + ", nbPassager=" + nbPassager + "]";
+		return "Train [id=" + idTrain + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + "]";
 	}
 	
 	
@@ -101,9 +108,6 @@ public class Train {
 	public LocalDateTime getHeureArrivee() {
 		return heureArrivee;
 	}
-
-
-
 //	public List<Arret> getChemin() {
 //		return chemin;
 //	}

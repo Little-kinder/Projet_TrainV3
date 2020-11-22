@@ -10,9 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.OneToOne;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NamedQueries({ @NamedQuery(name = "findAllTrainsP", query = "select i from TrainPhysique i"),
+	@NamedQuery(name = "countTrainsP", query = "select count(i) from TrainPhysique i"),
+	@NamedQuery(name = "deleteAllTrainsP", query = "delete from TrainPhysique") })
+
 public class TrainPhysique {
 
 	public TrainPhysique(int idTrainPhysique, Train train, boolean estRes, String localicationTrain) {

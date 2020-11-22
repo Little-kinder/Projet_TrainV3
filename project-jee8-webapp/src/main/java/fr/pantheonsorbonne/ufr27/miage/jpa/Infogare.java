@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name = "showAllDetails", query = "select i from Infogare i")
 public class Infogare {
 
 	@Id
@@ -61,7 +63,7 @@ public class Infogare {
 
 	@Override
 	public String toString() {
-		return "Gare [id=" + idInfogare + ", typeInfogare=" + typeInfogare + " ]";
+		return "Gare [id=" + idInfogare + ", typeInfogare=" + typeInfogare + ", gare=" + gare + "]";
 	}
 
 }

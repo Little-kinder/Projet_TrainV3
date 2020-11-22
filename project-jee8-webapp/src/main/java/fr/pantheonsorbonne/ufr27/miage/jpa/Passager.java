@@ -19,8 +19,6 @@ import javax.persistence.OneToOne;
 	@NamedQuery(name = "findPassagerByName", query = "select i from Passager i where i.name = :name"),
 	@NamedQuery(name = "deletePassagerByName", query = "delete from Passager i where i.name = :name"),
 	@NamedQuery(name = "deleteAllPassagers", query = "delete from Passager") })
-
-
 public class Passager {
 
 	
@@ -95,7 +93,7 @@ public class Passager {
 	
 	@Override
 	public String toString() {
-		return "Passager [name=" + name + ", correspondance=" + correspondance + ", billet="+ billet +"]";
+		return "Passager [name=" + name + ", correspondance=" + correspondance + ", train=" + train +", billet="+ billet +"]";
 	}
 
 }

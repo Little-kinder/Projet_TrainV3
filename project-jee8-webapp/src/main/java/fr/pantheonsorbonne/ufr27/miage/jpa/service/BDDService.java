@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa.service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.stream.IntStream;
 
 import javax.persistence.EntityManager;
@@ -97,27 +98,26 @@ public class BDDService {
 			em.persist(p);
 		}
 
+		//suppression passagers
 //		  long numOfPassagers = em.createNamedQuery("countPassagers",Long.class).getSingleResult();
 //		  if (numOfPassagers > 0) { 
 //			  int res = em.createNamedQuery("deleteAllPassagers").executeUpdate();
 //			  System.out.println("Deleted  " + res + " Passagers"); 
 //		  }
 		
-		
+		// nombre de passagers
 			  Long res = em.createNamedQuery("countPassagers",Long.class).getSingleResult();
 			  System.out.println("There are " + res + " Passagers"); 
-		 
+			  
+		//liste de passagers
+		Collection<Passager> pgrs = em.createNamedQuery("findAllPassagers",
+				 Passager.class).getResultList(); for (Passager e : pgrs) {
+					 System.out.println(e); }
 	
+		//suppression billets
 		/*
-		 * 
 		 * int dep = em.createNamedQuery("deleteAllBillets").executeUpdate();
 		 * System.out.println("Deleted  " + dep + " Billet(s)");
-		 * 
-		 * 
-		 * 
-		 * Collection<Passager> passagers = em.createNamedQuery("findAllPassagers",
-		 * Passager.class).getResultList(); for (Passager e : passagers) {
-		 * System.out.println(e); }
 		 */
 
 		em.getTransaction().commit();
