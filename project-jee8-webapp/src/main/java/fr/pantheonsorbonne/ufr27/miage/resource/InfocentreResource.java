@@ -58,15 +58,7 @@ public class InfocentreResource {
 		return Response.ok(localisation).build();
 	}
 
-	@PUT
-	@Path("put")
-	@Consumes(MediaType.TEXT_PLAIN)
-	public Response putTrainLocal(String localisation, boolean etat) throws DatatypeConfigurationException{
-		trainP.setLocalisationTrain(localisation);
-		train.setEtat(etat);
-		
-		return Response.ok(localisation).build();
-	}
+	
 
 	
 	@GET
