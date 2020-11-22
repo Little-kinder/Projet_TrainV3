@@ -17,6 +17,7 @@ import fr.pantheonsorbonne.ufr27.miage.jpa.Contract;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Invoice;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Train;
+import fr.pantheonsorbonne.ufr27.miage.jpa.TrainPhysique;
 import service.InfoCentreService;
 import fr.pantheonsorbonne.ufr27.miage.dao.TrainDAO;
 import service.InvoicingService;
@@ -58,8 +59,14 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 	}
 
 	@Override
-	public void suppTrainPhysique_Trajet(Train train) throws IOException {
-		 // JE NAI PAS ENCORE LA BONNE BDD : SUPP TRAINPHYSIQUE DE LA LIST DES TRAINS PHYSIQUE DE TRAIN
+	public void suppTrainPhysique_Trajet(int idTrain, int idTrainPhysique) throws IOException {
+		
+			Train currtrain = em.find(Train.class, idTrain);
+			
+			em.createNativeQuery("delete TrainPhysique from Train where idTrain = idTrain ")
+					.setParameter("idTrain", idTrain).getResultList();
+	
+		
 	}
 	@Override
 	public void gestionRetard(int idTrain) throws IOException {

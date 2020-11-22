@@ -25,6 +25,6 @@ public interface InfoCentreService {
 
 	void gestionRetard(int idTrain) throws IOException;
 	
-	public void suppTrainPhysique_Trajet(Train train) throws IOException ;
+	public void suppTrainPhysique_Trajet(int idTrain, int idTrainPhysiques) throws IOException ;
 	
 }

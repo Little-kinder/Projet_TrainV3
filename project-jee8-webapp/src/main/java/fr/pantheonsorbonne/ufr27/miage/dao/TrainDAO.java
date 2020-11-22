@@ -98,7 +98,18 @@ public class TrainDAO {
 		return TrainPhyPassager;
 		
 	}
-
+	
+	public List<TrainPhysique> getTrainPhysiqueTrajet (int idTrain){
+		Train currtrain = em.find(Train.class, idTrain);
+		
+		List<TrainPhysique> liste_TP = null;
+		liste_TP = em.createNativeQuery("select TrainPhysique from Train where idTrain = idTrain")
+				.setParameter("idPassager", idTrain).getResultList();
+		
+		return liste_TP;
+		
+	}
+	
 	
 	
 	// AJOUTER DONNEE MODIFIER PAR LINFOCENTRE ICI
