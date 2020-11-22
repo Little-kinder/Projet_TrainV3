@@ -5,13 +5,11 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import javax.annotation.ManagedBean;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
-import fr.pantheonsorbonne.ufr27.miage.jpa.Invoice;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Address;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.User;
