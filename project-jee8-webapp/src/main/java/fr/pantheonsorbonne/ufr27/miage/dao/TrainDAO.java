@@ -70,6 +70,7 @@ public class TrainDAO {
 		if (currtrain == null) {
 			throw new IOException();
 		}
+		@SuppressWarnings("unchecked")
 		List<Passager> passagers = (List<Passager>) currtrain.getPassagers();
 		return passagers;
 	}
