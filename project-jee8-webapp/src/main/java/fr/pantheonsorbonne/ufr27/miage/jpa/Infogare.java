@@ -19,7 +19,7 @@ public class Infogare {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idInfogare;
 	String typeInfogare;
-	private final static Set typeInfogares = Set.of("arrivés", "départs", "perturbations", "informations");
+	private final static Set<String> typeInfogares = Set.of("arrivés", "départs", "perturbations", "informations");
 	@ManyToOne(cascade = CascadeType.ALL)
 	Gare gare;
 

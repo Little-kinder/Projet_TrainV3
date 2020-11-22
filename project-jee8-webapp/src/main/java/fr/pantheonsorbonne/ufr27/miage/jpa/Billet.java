@@ -6,41 +6,45 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 
 @Entity
-@NamedQuery(name = "deleteAllBillets", query = "delete from Billet d")
+@NamedQueries({ @NamedQuery(name = "deleteAllBillets", query = "delete from Billet d"),
+			@NamedQuery(name = "findBilletByTrainP", query = "select i from Billet i where  i.trainPhysique.idTrainPhysique = :idTrainPhysique")})
+
 public class Billet {
-	  	@Id
-	    int idBillet; 
+	@Id
+	int idBillet;
+	@ManyToOne(cascade = CascadeType.ALL)
+	TrainPhysique trainPhysique;
+	
+	public Billet() {
+	}
 
-	    public Billet() {
-	    }
+	public Billet(int idBillet, TrainPhysique trainPhysique) {
+		Objects.requireNonNull(trainPhysique);
+		this.idBillet = idBillet;
+		this.trainPhysique = trainPhysique;
+	}
 
+	public int getIdBillet() {
+		return idBillet;
+	}
 
-	    public Billet(int idBillet,TrainPhysique trainPhysique) {
-	    	Objects.requireNonNull(trainPhysique);
-	    	this.idBillet = idBillet;
-	        this.trainPhysique = trainPhysique;
-	    }
+	public void setIdBillet(int idBillet) {
+		this.idBillet = idBillet;
+	}
 
-	    public int getIdBillet() {
-	        return idBillet;
-	    }
-	    public void setIdBillet(int idBillet) {
-	        this.idBillet = idBillet;
-	    }
+	
 
-	    @ManyToOne(cascade = CascadeType.ALL)
-	    TrainPhysique trainPhysique;
+	public TrainPhysique getTrainPhysique() {
+		return trainPhysique;
+	}
 
-	    public TrainPhysique getTrainPhysique() {
-	        return trainPhysique;
-	    }
-	    public void setTrainPhysique(TrainPhysique trainPhysique) {
-	        this.trainPhysique = trainPhysique;
-	    }
+	public void setTrainPhysique(TrainPhysique trainPhysique) {
+		this.trainPhysique = trainPhysique;
+	}
 //	    public Passager getPassager() {
 //	        return passager;
 //	    }
@@ -48,9 +52,9 @@ public class Billet {
 //	        this.passager = passager;
 //	    }
 
-	    @Override
-	    public String toString() {
-	        return "Billet [idBillet=" + idBillet + ", trainPhysique=" + trainPhysique + "]";
-	    }
-	
+	@Override
+	public String toString() {
+		return "Billet [idBillet=" + idBillet + ", trainPhysique=" + trainPhysique + "]";
+	}
+
 }
