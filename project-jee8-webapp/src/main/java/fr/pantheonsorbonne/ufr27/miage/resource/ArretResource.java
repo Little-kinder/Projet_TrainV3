@@ -48,7 +48,7 @@ public class ArretResource {
 	public Response putIdGare(Gare idGare) throws DatatypeConfigurationException{
 		arret.setIdGare(idGare);
 		this.idGare=idGare;
-		
+
 		return Response.ok(idGare).build();
 	}
 	

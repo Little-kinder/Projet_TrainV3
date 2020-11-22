@@ -4,16 +4,11 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Locale;
 
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
@@ -30,21 +25,18 @@ import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
 import fr.pantheonsorbonne.ufr27.miage.exception.ExceptionMapper;
 import fr.pantheonsorbonne.ufr27.miage.jms.PaymentValidationAckownledgerBean;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.ConnectionFactorySupplier;
-import fr.pantheonsorbonne.ufr27.miage.jms.conf.JMSProducer;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentAckQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.utils.BrokerUtils;
-import fr.pantheonsorbonne.ufr27.miage.jpa.TrainPhysique;
+import fr.pantheonsorbonne.ufr27.miage.jpa.service.BDDService;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.InvoicingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.MailingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.service.impl.PaymentServiceImpl;
-import fr.pantheonsorbonne.ufr27.miage.service.impl.UserServiceImpl;
 import service.GymService;
 import service.InvoicingService;
 import service.MailingService;
 import service.PaymentService;
-import service.UserService;
 
 /**
  * Main class.
@@ -54,9 +46,7 @@ public class Main {
 
 	public static final String BASE_URI = "http://localhost:8080/";
 
-	@Inject
-	private EntityManager manager;
-	
+
 	public static HttpServer startServer() {
 
 		final ResourceConfig rc = new ResourceConfig()//
@@ -92,8 +82,6 @@ public class Main {
 		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 	}
 	
-	
-
 	/**
 	 * Main method.beanbeanbeanbean
 	 * 
@@ -101,7 +89,7 @@ public class Main {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-
+		
 		Locale.setDefault(Locale.ENGLISH);
 		SLF4JBridgeHandler.removeHandlersForRootLogger();
 		SLF4JBridgeHandler.install();
@@ -109,42 +97,22 @@ public class Main {
 		
 		BrokerUtils.startBroker();
 		
+		
 		PersistenceConf pc = new PersistenceConf();
 		pc.getEM();
 		pc.launchH2WS();
 		
-		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-
-		try (SeContainer container = initializer.addPackages(true, Main.class.getPackage()).initialize()) {
-			Main jpa = container.select(Main.class).get();
-			EntityTransaction tx = jpa.manager.getTransaction();
-			tx.begin();
-			try {
-				jpa.createTrainPhysique();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			tx.commit();
-	
-			System.out.println(".. done");
+		BDDService input = new BDDService(pc.getEM());
+		input.input();
 		
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
 				BASE_URI));
 		System.in.read();
+		
 		server.stop();
-		}
 		
-	}
-	
-	private void createTrainPhysique() {
-//		int numOfEmployees = manager.createQuery("Select a From Employee a", Employee.class).getResultList().size();
 		
-			TrainPhysique trainphysique = new TrainPhysique(11);
-			manager.persist(trainphysique); // cree trainphysique
-			
-//			manager.persist(new Employee("Jakab Gipsz", trainphysique));
-//			manager.persist(new Employee("Captain Nemo", trainphysique));
 	}
 
 
