@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -21,6 +22,9 @@ import fr.pantheonsorbonne.ufr27.miage.jpa.TrainPhysique;
 import service.InfoCentreService;
 import fr.pantheonsorbonne.ufr27.miage.dao.TrainDAO;
 import service.InvoicingService;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Train;
+import service.InfoCentreService;
+import fr.pantheonsorbonne.ufr27.miage.dao.TrainDAO;
 import service.MailingService;
 
 @Stateless
@@ -68,6 +72,7 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 	
 		
 	}
+	
 	@Override
 	public void gestionRetard(int idTrain) throws IOException {
 		long retard = 0;
@@ -88,10 +93,14 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 			ajoutRetard(train,retard);
 			if(!(TrainDAO.getArrets(idTrain).isEmpty())) {
 				List<Arret> liste_arret = TrainDAO.getArrets(idTrain);
-				
+				/*
 				for(Arret i : liste_arret) {
 					i.getHeureDepart().plusMinutes(retard);
-				}
+
+			
+				 * for(Arret i : liste_arret) { i.getHeureDepart().plusMinutes(retard); }
+				 */
+
 			}
 			
 		}

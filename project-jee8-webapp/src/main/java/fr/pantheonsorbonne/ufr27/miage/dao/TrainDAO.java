@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.ufr27.miage.dao;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,12 +63,14 @@ public class TrainDAO {
 		}
 		return currtrain.getType();
 	}
+	
 	public List<Passager> getPassager(int idTrain) throws IOException {
 
 		Train currtrain = em.find(Train.class, idTrain);
 		if (currtrain == null) {
 			throw new IOException();
 		}
+		@SuppressWarnings("unchecked")
 		List<Passager> passagers = (List<Passager>) currtrain.getPassagers();
 		return passagers;
 	}
@@ -77,9 +80,12 @@ public class TrainDAO {
 		if (currtrain == null) {
 			throw new IOException();
 		}
-		List<Arret> chemin = (List<Arret>) currtrain.getChemin();
+		List<Arret> chemin = new ArrayList<Arret>();;
+		chemin.add(currtrain.getDepart());
+		chemin.add(currtrain.getArrivee());
 		return chemin;
 	}
+	
 	
 	public List<TrainPhysique> getTrainPhyPassager(int idPassager){
 		
