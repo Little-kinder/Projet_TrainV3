@@ -107,5 +107,16 @@ public class Train {
 	public LocalDateTime getHeureArrivee() {
 		return heureArrivee;
 	}
+	
+	/*
+     * Permet d'ajouter un passager à la liste des passagers dans un trajet
+     * */
+    public void addToSetPassager (Passager element) {
+        passagers.add(element);
+    }
+
+    public void addToSetTrain (TrainPhysique element) {
+        listTrain.add(element);
+    }
 
 }
