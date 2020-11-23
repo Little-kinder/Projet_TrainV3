@@ -103,8 +103,8 @@ public class Main {
 		pc.getEM();
 		pc.launchH2WS();
 		
-		BDDService input = new BDDService(pc.getEM());
-		input.input();
+		BDDService bdd = new BDDService(pc.getEM());
+		bdd.input();
 		
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
