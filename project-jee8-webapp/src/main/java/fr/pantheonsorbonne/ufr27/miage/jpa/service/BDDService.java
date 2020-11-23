@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.ufr27.miage.jpa.service;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import javax.persistence.EntityManager;
@@ -164,6 +165,7 @@ public class BDDService {
 		// Suppression tous TrainPhysiques
 		int dep2 = em.createNamedQuery("deleteAllTrainsP").executeUpdate();
 		System.out.println("Deleted  " + dep2 + " TrainP(s)");
+
 
 		em.getTransaction().commit();
 	}

@@ -23,8 +23,13 @@ public interface InfoCentreService {
 
 	void addArret_Trajet(Train train, Arret arret) throws IOException;
 
-	void gestionRetard(int idTrain) throws IOException;
+	long gestionRetard(int idTrain) throws IOException;
 	
 	public void suppTrainPhysique_Trajet(int idTrain, int idTrainPhysiques) throws IOException ;
+	
+
+
+
+	void affichageInfoGare(Train train) throws IOException;
 	
 }

@@ -20,6 +20,7 @@ public class Infogare {
 	int idInfogare;
 	String typeInfogare;
 	private final static Set<String> typeInfogares = Set.of("arrivés", "départs", "perturbations", "informations");
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	Gare gare;
 

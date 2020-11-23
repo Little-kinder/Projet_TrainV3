@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "deleteAllGares", query = "delete from Gare") })
 
 public class Gare {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

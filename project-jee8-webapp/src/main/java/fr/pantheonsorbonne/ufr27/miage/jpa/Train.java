@@ -65,6 +65,12 @@ public class Train {
 		this.arrivee = arrivee;
 	}
 
+	public Train(int idTrain, Arret arret) {
+		this.idTrain = idTrain;
+		this.arrivee = arret;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Train [id=" + idTrain + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + "]";
