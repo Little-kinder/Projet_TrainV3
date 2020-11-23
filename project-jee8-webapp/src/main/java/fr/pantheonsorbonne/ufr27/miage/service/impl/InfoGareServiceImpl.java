@@ -15,9 +15,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import fr.pantheonsorbonne.ufr27.miage.jpa.Arret;
-import fr.pantheonsorbonne.ufr27.miage.jpa.Contract;
-import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
-import fr.pantheonsorbonne.ufr27.miage.jpa.Invoice;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Train;
 import service.InfoCentreService;
 import service.InfoGareService;
@@ -60,7 +57,7 @@ public class InfoGareServiceImpl implements InfoGareService {
 	}
 
 	@Override
-	public void afficherTrajet(Train train, Arret arret) throws IOException {
+	public void afficherTrajet(Train train) throws IOException {
 		int i=1;
 		for(Arret a : TrainDAO.getArrets(train.getIdTrain())) {
 			System.out.println("Arrêt numéro "+i+"est "+a);
@@ -71,7 +68,14 @@ public class InfoGareServiceImpl implements InfoGareService {
 
 	@Override
 	public void afficherHeureArr(Train train) throws IOException {
+		LocalDateTime dateTimeOne = LocalDateTime.parse("0000-01-00T00:00:00.000");
+		if(TrainDAO.getHeureArr(train.getIdTrain()).isAfter(dateTimeOne)) {
 		System.out.println("Heure d'arrivée du train numéro "+train.getIdTrain()+" : " +TrainDAO.getHeureArr(train.getIdTrain()));
+			
+		}
+		else {
+			System.out.println("Pas d'heure d'arrivée pour le train numero "+train.getIdTrain());
+		}
 	}
 
 	

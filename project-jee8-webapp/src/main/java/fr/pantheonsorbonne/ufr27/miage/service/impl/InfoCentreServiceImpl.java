@@ -24,7 +24,9 @@ import fr.pantheonsorbonne.ufr27.miage.dao.TrainDAO;
 import service.InvoicingService;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Train;
 import service.InfoCentreService;
+
 import fr.pantheonsorbonne.ufr27.miage.dao.TrainDAO;
+import fr.pantheonsorbonne.ufr27.miage.service.impl.InfoGareServiceImpl;
 import service.MailingService;
 
 @Stateless
@@ -42,6 +44,21 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 	
 	String perturbation = "none";
 	
+
+	@Override 
+	public void affichageInfoGare(Train train) throws IOException {
+		int idTrain = train.getIdTrain();
+		InfoGareServiceImpl info = new InfoGareServiceImpl();
+		long retard = gestionRetard(idTrain);
+		
+		if(retard>0){
+			info.afficherRetard(train,retard);
+		}
+		info.afficherTrajet(train);
+		info.afficherHeureArr(train);
+		
+	}
+	
 	@Override
 	public void ajoutRetard(Train train, long retard) throws IOException {
 		TrainDAO.getHeureArr(train.getIdTrain()).plusMinutes(retard);
@@ -52,13 +69,18 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 	@Override
 	public void suppArret_Trajet(Train train, Arret arret) throws IOException {
 		 TrainDAO.getArrets(train.getIdTrain()).remove(arret); 
-		 
+		 int idArret = arret.getIdArret();
+		 em.createNativeQuery("delete arrivee from Train where arrivee = :idArret and idTrain = :idTrain")
+		 	.setParameter("arrivee", idArret).setParameter("idTrain", train.getIdTrain());
 	}
 	
 	
 	@Override
 	public void addArret_Trajet(Train train, Arret arret) throws IOException {
-		 TrainDAO.getArrets(train.getIdTrain()).add(arret); 
+		 TrainDAO.getArrets(train.getIdTrain()).add(arret);
+		 int idArret = arret.getIdArret();
+		 em.createNativeQuery("insert into Train values ('idTrain', 'arrivee' )")
+		 	.setParameter("arrivee", idArret).setParameter("idTrain", train.getIdTrain());
 		 
 	}
 
@@ -67,14 +89,14 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 		
 			Train currtrain = em.find(Train.class, idTrain);
 			
-			em.createNativeQuery("delete TrainPhysique from Train where idTrain = idTrain ")
-					.setParameter("idTrain", idTrain).getResultList();
+			em.createNativeQuery("delete TrainPhysique from Train where idTrain = :idTrain ")
+					.setParameter("idTrain", idTrain);
 	
 		
 	}
 	
 	@Override
-	public void gestionRetard(int idTrain) throws IOException {
+	public long gestionRetard(int idTrain) throws IOException {
 		long retard = 0;
 		Train train = em.find(Train.class, idTrain);
 		
@@ -91,6 +113,7 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 			}
 			
 			ajoutRetard(train,retard);
+			
 			if(!(TrainDAO.getArrets(idTrain).isEmpty())) {
 				List<Arret> liste_arret = TrainDAO.getArrets(idTrain);
 				/*
@@ -104,6 +127,7 @@ public class InfoCentreServiceImpl implements InfoCentreService {
 			}
 			
 		}
+		return retard;
 		
 	}
 
