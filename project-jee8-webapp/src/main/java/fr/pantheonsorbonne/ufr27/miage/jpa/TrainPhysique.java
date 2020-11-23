@@ -16,24 +16,11 @@ import javax.persistence.NamedQuery;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries({ @NamedQuery(name = "findAllTrainsP", query = "select i from TrainPhysique i"),
-	@NamedQuery(name = "countTrainsP", query = "select count(i) from TrainPhysique i"),
-	@NamedQuery(name = "findTrainPById", query = "select i from TrainPhysique i where i.idTrainPhysique = :idTrainPhysique"),
-	@NamedQuery(name = "deleteAllTrainsP", query = "delete from TrainPhysique") })
+		@NamedQuery(name = "countTrainsP", query = "select count(i) from TrainPhysique i"),
+		@NamedQuery(name = "findTrainPById", query = "select i from TrainPhysique i where i.idTrainPhysique = :idTrainPhysique"),
+		@NamedQuery(name = "deleteAllTrainsP", query = "delete from TrainPhysique") })
 
 public class TrainPhysique {
-
-
-	public TrainPhysique(int idTrainPhysique, Train train, boolean estRes, String localicationTrain) {
-		Objects.requireNonNull(train);
-		Objects.requireNonNull(localicationTrain);
-		this.idTrainPhysique = idTrainPhysique;
-		this.train = train;
-		this.estRes = estRes;
-		this.localicationTrain = localicationTrain;
-	}
-
-	public TrainPhysique() {
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,9 +28,25 @@ public class TrainPhysique {
 	@OneToOne(cascade = CascadeType.ALL) /* un trajet appartient que a un train et vis versa */
 	Train train;
 	boolean estRes;
-	String localicationTrain;
+	double longitude;
+	double latitude;
 
-	
+	public TrainPhysique(int idTrainPhysique, Train train, boolean estRes, double latitude, double longitude) {
+		Objects.requireNonNull(train);
+		if (longitude > 180 || longitude < -180 || latitude < -90 || latitude > 90) {
+			throw new IllegalArgumentException(
+					"La longitude doit est entre -180 et 180 et la latitude entre -90 et 90");
+		}
+		this.idTrainPhysique = idTrainPhysique;
+		this.train = train;
+		this.estRes = estRes;
+		this.longitude = longitude;
+		this.latitude = latitude;
+	}
+
+	public TrainPhysique() {
+	}
+
 	public int getIdTrainPhysique() {
 		return idTrainPhysique;
 	}
@@ -64,18 +67,18 @@ public class TrainPhysique {
 		this.train = train;
 	}
 
-	public String getLocalicationTrain() {
-		return localicationTrain;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setLocalicationTrain(String localicationTrain) {
-		this.localicationTrain = localicationTrain;
+	public double getLatitude() {
+		return latitude;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "TrainPhysique [idTrainPhysique=" + idTrainPhysique + ", train=" + train + ", estRes=" + estRes
-				+ ", localicationTrain=" + localicationTrain + "]";
+				+ ", localicationTrain= " + latitude + ", " + longitude + "]";
 	}
 
 }

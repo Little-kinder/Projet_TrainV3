@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -40,10 +41,8 @@ public class Train {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
 	Set<Passager>passagers= new HashSet<>();
-
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
-//	@JoinColumn(name="idarret", nullable=false)
-//	List<Arret>chemin = new ArrayList<Arret>();
+	
+	@ManyToOne(cascade = CascadeType.ALL)
 	Arret depart, arrivee;
 	
 	public Train() {
@@ -108,5 +107,16 @@ public class Train {
 	public LocalDateTime getHeureArrivee() {
 		return heureArrivee;
 	}
+	
+	/*
+     * Permet d'ajouter un passager à la liste des passagers dans un trajet
+     * */
+    public void addToSetPassager (Passager element) {
+        passagers.add(element);
+    }
+
+    public void addToSetTrain (TrainPhysique element) {
+        listTrain.add(element);
+    }
 
 }

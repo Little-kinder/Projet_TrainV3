@@ -9,9 +9,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.TrainPhysique;
 
@@ -21,10 +18,12 @@ import fr.pantheonsorbonne.ufr27.miage.model.jaxb.TrainPhysique;
 public class TrainPhysiqueResource {
 
 	int idTrainPhys;
-
+	TrainPhysique trainP;
 	public TrainPhysiqueResource(@PathParam("id") int idTrainPhys) {
 		this.idTrainPhys = idTrainPhys;
-
+		trainP = new ObjectFactory().createTrainPhysique();
+		trainP.setIdTrainPhys(idTrainPhys);
+		
 	}
 	
 	@POST
