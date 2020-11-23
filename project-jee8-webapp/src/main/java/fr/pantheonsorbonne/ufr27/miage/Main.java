@@ -46,15 +46,12 @@ public class Main {
 
 	public static final String BASE_URI = "http://localhost:8080/";
 
-
 	public static HttpServer startServer() {
 
 		final ResourceConfig rc = new ResourceConfig()//
 				.packages(true, "fr.pantheonsorbonne.ufr27.miage")//
 				.register(DeclarativeLinkingFeature.class)//
-				.register(ExceptionMapper.class)
-				.register(PersistenceConf.class)
-				.register(new AbstractBinder() {
+				.register(ExceptionMapper.class).register(PersistenceConf.class).register(new AbstractBinder() {
 
 					@Override
 					protected void configure() {
@@ -63,17 +60,20 @@ public class Main {
 						bind(PaymentServiceImpl.class).to(PaymentService.class);
 						bind(InvoicingServiceImpl.class).to(InvoicingService.class);
 						bind(InvoiceDAO.class).to(InvoiceDAO.class);
-						//bind(UserDAO.class).to(UserDAO.class);
+						// bind(UserDAO.class).to(UserDAO.class);
 						bind(MailingServiceImpl.class).to(MailingService.class);
 						bind(PaymentDAO.class).to(PaymentDAO.class);
 						bindFactory(EMFFactory.class).to(EntityManagerFactory.class).in(Singleton.class);
 						bindFactory(EMFactory.class).to(EntityManager.class).in(RequestScoped.class);
 						bindFactory(ConnectionFactorySupplier.class).to(ConnectionFactory.class).in(Singleton.class);
-						bindFactory(PaymentAckQueueSupplier.class).to(Queue.class).named("PaymentAckQueue").in(Singleton.class);
-						bindFactory(PaymentQueueSupplier.class).to(Queue.class).named("PaymentQueue").in(Singleton.class);
-						
+						bindFactory(PaymentAckQueueSupplier.class).to(Queue.class).named("PaymentAckQueue")
+								.in(Singleton.class);
+						bindFactory(PaymentQueueSupplier.class).to(Queue.class).named("PaymentQueue")
+								.in(Singleton.class);
+
 //						bind(PaymentProcessorBean.class).to(PaymentProcessorBean.class).in(Singleton.class);
-						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class).in(Singleton.class);
+						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class)
+								.in(Singleton.class);
 
 					}
 
@@ -81,7 +81,7 @@ public class Main {
 
 		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 	}
-	
+
 	/**
 	 * Main method.beanbeanbeanbean
 	 * 
@@ -89,32 +89,29 @@ public class Main {
 	 * @throws IOException
 	 */
 	@SuppressWarnings("deprecation")
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		
+	public static void main(String[] args) throws IOException {
+
 		Locale.setDefault(Locale.ENGLISH);
 		SLF4JBridgeHandler.removeHandlersForRootLogger();
 		SLF4JBridgeHandler.install();
 		final HttpServer server = startServer();
-		
+
 		BrokerUtils.startBroker();
-		
-		
+
 		PersistenceConf pc = new PersistenceConf();
 		pc.getEM();
 		pc.launchH2WS();
-		
+
 		BDDService bdd = new BDDService(pc.getEM());
 		bdd.input();
-		
+
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
 				BASE_URI));
 		System.in.read();
-		
-		server.stop();
-		
-		
-	}
 
+		server.stop();
+
+	}
 
 }

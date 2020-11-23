@@ -25,7 +25,7 @@ public class TrainPhysique {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrainPhysique;
-	@OneToOne(cascade = CascadeType.ALL) /* un trajet appartient que a un train et vis versa */
+	@OneToOne(cascade = CascadeType.ALL)
 	Train train;
 	boolean estRes;
 	double longitude;

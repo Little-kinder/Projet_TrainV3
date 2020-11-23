@@ -11,14 +11,14 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "deleteAllBillets", query = "delete from Billet d"),
-			@NamedQuery(name = "findBilletByTrainP", query = "select i from Billet i where  i.trainPhysique.idTrainPhysique = :idTrainPhysique")})
+		@NamedQuery(name = "findBilletByTrainP", query = "select i from Billet i where  i.trainPhysique.idTrainPhysique = :idTrainPhysique") })
 
 public class Billet {
 	@Id
 	int idBillet;
 	@ManyToOne(cascade = CascadeType.ALL)
 	TrainPhysique trainPhysique;
-	
+
 	public Billet() {
 	}
 
@@ -36,8 +36,6 @@ public class Billet {
 		this.idBillet = idBillet;
 	}
 
-	
-
 	public TrainPhysique getTrainPhysique() {
 		return trainPhysique;
 	}
@@ -45,12 +43,6 @@ public class Billet {
 	public void setTrainPhysique(TrainPhysique trainPhysique) {
 		this.trainPhysique = trainPhysique;
 	}
-//	    public Passager getPassager() {
-//	        return passager;
-//	    }
-//	    public void setPassager(Passager passager) {
-//	        this.passager = passager;
-//	    }
 
 	@Override
 	public String toString() {

@@ -23,7 +23,6 @@ import javax.persistence.OneToMany;
 		@NamedQuery(name = "deleteAllTrains", query = "delete from Train") })
 public class Train {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int idTrain;
@@ -40,18 +39,17 @@ public class Train {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "train")
-	Set<Passager>passagers= new HashSet<>();
-	
+	Set<Passager> passagers = new HashSet<>();
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	Arret depart, arrivee;
-	
+
 	public Train() {
 	}
 
-
 	public Train(int idTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee, boolean etat, int nbPassager,
 			Arret depart, Arret arrivee) {
-		
+
 		Objects.requireNonNull(depart);
 		Objects.requireNonNull(arrivee);
 		if (heureDepart.isAfter(heureArrivee)) {
@@ -67,6 +65,12 @@ public class Train {
 		this.arrivee = arrivee;
 	}
 
+	public Train(int idTrain, Arret arret) {
+		this.idTrain = idTrain;
+		this.arrivee = arret;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Train [id=" + idTrain + ", heureDepart=" + heureDepart + ", heureArrivee=" + heureArrivee + "]";
@@ -107,16 +111,16 @@ public class Train {
 	public LocalDateTime getHeureArrivee() {
 		return heureArrivee;
 	}
-	
-	/*
-     * Permet d'ajouter un passager à la liste des passagers dans un trajet
-     * */
-    public void addToSetPassager (Passager element) {
-        passagers.add(element);
-    }
 
-    public void addToSetTrain (TrainPhysique element) {
-        listTrain.add(element);
-    }
+	/***********************************************************************
+	 * Permet d'ajouter un passager à la liste des passagers dans un trajet
+	 *********************************************************************/
+	public void addToSetPassager(Passager element) {
+		passagers.add(element);
+	}
+
+	public void addToSetTrain(TrainPhysique element) {
+		listTrain.add(element);
+	}
 
 }
