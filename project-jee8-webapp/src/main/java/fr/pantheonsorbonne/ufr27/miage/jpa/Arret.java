@@ -22,7 +22,6 @@ public class Arret {
 
 	public Arret(int idArret, int numeroVoix, Gare gare) {
 		Objects.requireNonNull(gare);
-
 		this.idArret = idArret;
 		this.gare = gare;
 		this.numeroVoix = numeroVoix;
