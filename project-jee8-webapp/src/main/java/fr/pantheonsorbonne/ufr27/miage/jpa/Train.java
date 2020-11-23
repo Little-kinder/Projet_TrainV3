@@ -17,6 +17,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Train {
 	
+	public Train() {
+		
+	}
+	
 	public Train(int idTrain, String typeTrain, LocalDateTime heureDepart, LocalDateTime heureArrivee, boolean etat,
 			int nbPassager, Set<TrainPhysique> listTrain, Set<Passager> passagers, List<Arret> chemin) {
 		super();

@@ -8,6 +8,10 @@ import javax.persistence.Id;
 @Entity
 public class Gare {
 	
+	public Gare() {
+		
+	}
+	
 	public Gare(int idGare, String ville, String localisation) {
 		super();
 		this.idGare = idGare;
